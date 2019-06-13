@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's-6_9lixruxpmi!og56okg3ki*@3ebe*gzzx)zzq%thdyg!zb)'
+SECRET_KEY = 'mu@$u$&#-#0+smpzg#*jzfhayz^eh-f9^1-+0!p2x5idit+lp8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'mealmapp.io', 'mealmapp.ru','berryrock.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'mealmapp.io', 'mealmapp.ru', 'berryrock.pythonanywhere.com']
 
 
 # Application definition
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',
+    'pages',
+    'news',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'main.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'main.wsgi.application'
 
 
 # Database
