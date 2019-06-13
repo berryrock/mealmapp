@@ -1,0 +1,8 @@
+*.pyc
+*~
+__pycache__
+mealmapp-venv
+mealmapp.db
+/static
+.DS_Store
+_old
