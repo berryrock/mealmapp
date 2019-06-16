@@ -5,9 +5,10 @@ from django.utils import timezone
 
 class News(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    picture = models.CharField(max_length=200,blank=True)
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
-    text = models.TextField()
+    text = models.TextField(blank=True)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 

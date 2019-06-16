@@ -4,10 +4,11 @@ from django.utils import timezone
 
 
 class Page(models.Model):
-    title = models.CharField(max_length=200)
-    desc = models.CharField(max_length=400)
-    keywords = models.CharField(max_length=200)
-    seo_text = models.TextField()
+	url = models.CharField(max_length=200,null=True)
+	title = models.CharField(max_length=200)
+	desc = models.CharField(max_length=400)
+	keywords = models.CharField(max_length=200)
+	seo_text = models.TextField()
 
-    def __str__(self):
-        return self.title
+	def __str__(self):
+		return self.title

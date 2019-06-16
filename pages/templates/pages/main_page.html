@@ -163,7 +163,7 @@
 			</div>
 		</div>
 	</div>
-	<img src="./louie-animation.png" width="100%">
+	<img src="./images/{{ page.url }}/louie-animation.png" width="100%">
 	<div class="container-fluid text bot-pad">
 		<div class="row">
 			<div class="col-lg-7 col-xs-12 align-self-start title">
@@ -171,44 +171,30 @@
 			</div>
 		</div>
 		<div class="row">
+
+			{% for news in last_news %}
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile inner">
-					<img src="./news.png">
+					<img src="./images/{{ news.url }}/{{ news.picture }}">
 					<div class="col-12 v-padding">
-						<p>Latest mobile platform update 3.1.1 for iOS and Android</p>
-						<a href="#">Read more ---></a>
+						<p>{{ news.title }}</p>
+						<a href="{% url 'news_detail' url=news.url %}">Read more ---></a>
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 tile inner">
-					<img src="./news.png">
-					<div class="col-12 v-padding">
-						<p>Latest mobile platform update 3.1.1 for iOS and Android</p>
-						<a href="#">Read more ---></a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 tile inner">
-					<img src="./news.png">
-					<div class="col-12 v-padding">
-						<p>Latest mobile platform update 3.1.1 for iOS and Android</p>
-						<a href="#">Read more ---></a>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
+
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile no-border">
 					<div class="col-12 v-padding">
 						<p>Check all news about project status, company life and community development</p>
-						<a href="#">Browse more ---></a>
+						<a href="./news/">Browse more ---></a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="banner block" style="background-image: url(./banner.png); background-repeat: no-repeat;">
+	<div class="banner block" style="background-image: url(images/{{ page.url }}//banner.png); background-repeat: no-repeat;">
 		<div class="container-fluid text">
 			<div class="row">
 				<div class="col-lg-6 col-xs-12 align-self-start position">
@@ -228,7 +214,7 @@
 		<div class="row border-grad bot-pad">
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile outter">
-					<img src="./device.png">
+					<img src="./images/{{ page.url }}//device.png">
 				</div>
 				<div class="col-12 v-padding">
 					<p>Smart scales<br>
@@ -239,7 +225,7 @@
 			
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile outter">
-					<img src="./device.png">
+					<img src="./images/{{ page.url }}//device.png">
 				</div>
 				<div class="col-12 v-padding">
 					<p>Smart scales<br>
@@ -248,7 +234,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
-				<div class="col-12 tile outter" style="background-image: url(./catalog.png); background-repeat: no-repeat; background-size: cover;">
+				<div class="col-12 tile outter" style="background-image: url(./images/{{ page.url }}//catalog.png); background-repeat: no-repeat; background-size: cover;">
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-12 v-padding"><a href="#">Watch full device catalog ---></a>
@@ -302,7 +288,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
-				<div class="col-12 tile" style="background-image: url(./company.png); background-repeat: no-repeat; background-size: cover;">
+				<div class="col-12 tile" style="background-image: url(images/{{ page.url }}//company.png); background-repeat: no-repeat; background-size: cover;">
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-12 v-padding"><p><a href="#">Future Starts LTD.</a></p>
