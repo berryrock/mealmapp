@@ -25,7 +25,7 @@ SECRET_KEY = 'mu@$u$&#-#0+smpzg#*jzfhayz^eh-f9^1-+0!p2x5idit+lp8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'mealmapp.io', 'mealmapp.ru', 'berryrock.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'mealmapp.io', 'mealmapp.ru', 'mealmapp.pythonanywhere.com']
 
 
 # Application definition
