@@ -1,0 +1,324 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Mealmapp - Global food management system</title>
+	<meta name="keywords" content=""/>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<style type="text/css">
+
+		-webkit-font-smoothing: antialiased;
+		-webkit-overflow-scrolling: touch;
+
+		@media screen {
+		@font-face {
+		    font-family: 'AkzidenzGroteskPro';
+		    src: url('#') format('otf'), url('#') format('woff'), url('#') format('ttf'), url('#') format('eot'), url('#') format('svg');
+		}
+		}
+
+		body {
+			background-color: #202020;
+		}
+
+		.logo {
+			font-size: 36px;
+		}
+		.menu {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: 999;
+			background-color: rgba(32, 32, 32, .8);
+		}
+
+		.border-grad {
+			background-image: linear-gradient(90deg, transparent, #ececec 50%, transparent); /* указываем угол  0deg для того чтобы градиент начинался от левого края, иначе градиент пойдёт сверху */
+    		background-repeat: no-repeat; /* убираем повторение градиента, необходимо для работы background-size */
+    		background-position: 50% 100%;
+    		background-size: 100% 1px;
+		}
+
+		.navbar-toggler {
+			border: 1px solid #ececec;
+		}
+
+		.banner {
+			height: 80vh;
+			margin-top: 100px;
+		}
+
+		.block {
+			margin-top: 50px;
+		}
+		.text {
+			font-family: AkzidenzGroteskPro, Helvetica, Arial, san-serif;
+			font-size: 24px;
+			line-height: 30px;
+			color: #ececec;
+			font-weight: 300;
+			letter-spacing: .3;
+		}
+
+		.title {
+			padding-top: 75px;
+			padding-bottom: 40px;
+			font-size: 36px;
+			line-height: 46px;
+			font-weight: 400;
+		}
+
+		.text a {
+			text-shadow: 0px 0px 4px #ececec;
+			color: #ececec;
+			text-decoration: none;
+			font-weight: 400;
+		}
+
+		.position {
+			padding-top: 100px;
+		}
+
+		.tile {
+			box-shadow: 0px 0px 4px #ececec;
+			border-radius: 8px;
+			padding: 0;
+		}
+
+		.inner img {
+			width: 100%;
+			max-height: 220px;
+
+		}
+
+		.outter {
+			
+			height: 386px;
+		}
+
+		.outter img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.no-border {
+			box-shadow: none;
+		}
+
+		.v-padding {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+
+		.bot-pad {
+			padding-bottom: 100px;
+		}
+
+		.top-pad {
+			padding-top: 100px;
+		}
+
+
+	</style>
+</head>
+<body>
+	<nav class="navbar sticky-top navbar-expand-lg menu text border-grad">
+		<a class="logo" href="#">Mealmapp</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto my-2 my-lg-0">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">App</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">News</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Company</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container-fluid text position">
+		<div class="row">
+			<div class="col-lg-6 col-xs-12 align-self-start">
+				<p>Global food management system</p>
+				<p>Analysis production and&nbsp;consumption around the&nbsp;world powered on&nbsp;a&nbsp;data from users and&nbsp;companies</p>
+				<a href="#">Learn more ---></a>
+			</div>
+		</div>
+	</div>
+	<img src="./louie-animation.png" width="100%">
+	<div class="container-fluid text bot-pad">
+		<div class="row">
+			<div class="col-lg-7 col-xs-12 align-self-start title">
+				<p>Latest news of the project</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 tile inner">
+					<img src="./news.png">
+					<div class="col-12 v-padding">
+						<p>Latest mobile platform update 3.1.1 for iOS and Android</p>
+						<a href="#">Read more ---></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 tile inner">
+					<img src="./news.png">
+					<div class="col-12 v-padding">
+						<p>Latest mobile platform update 3.1.1 for iOS and Android</p>
+						<a href="#">Read more ---></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 tile inner">
+					<img src="./news.png">
+					<div class="col-12 v-padding">
+						<p>Latest mobile platform update 3.1.1 for iOS and Android</p>
+						<a href="#">Read more ---></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 tile no-border">
+					<div class="col-12 v-padding">
+						<p>Check all news about project status, company life and community development</p>
+						<a href="#">Browse more ---></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="banner block" style="background-image: url(./banner.png); background-repeat: no-repeat;">
+		<div class="container-fluid text">
+			<div class="row">
+				<div class="col-lg-6 col-xs-12 align-self-start position">
+					<p>New region openings this Autumn</p>
+					<p>Follow actual information of event</p>
+					<a href="#">More information ---></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid text">
+		<div class="row">
+			<div class="col-lg-7 col-xs-12 align-self-start title">
+				<p>Use smart devices to collect more information about your vital statistic and to simplify your expirience with application</p>
+			</div>
+		</div>
+		<div class="row border-grad bot-pad">
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 tile outter">
+					<img src="./device.png">
+				</div>
+				<div class="col-12 v-padding">
+					<p>Smart scales<br>
+					Dark wood version</p>
+					<a href="#">Learn more ---></a>
+				</div>
+			</div>
+			
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 tile outter">
+					<img src="./device.png">
+				</div>
+				<div class="col-12 v-padding">
+					<p>Smart scales<br>
+					Dark wood version</p>
+					<a href="#">Learn more ---></a>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
+				<div class="col-12 tile outter" style="background-image: url(./catalog.png); background-repeat: no-repeat; background-size: cover;">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12 v-padding"><a href="#">Watch full device catalog ---></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
+	<div class="container-fluid block">
+		<div class="row justify-content-center">
+			<div class="col-lg-1 col-2-xs"><img src="./region.png"></div>
+			<div class="col-3-xs col-lg-1 text">
+				<p>English</p></div>
+			<div class="col-lg-1 col-2-xs">
+				<img src="./choice.png">
+			</div>
+		</div>
+	</div>
+	-->
+	<div class="container-fluid top-pad">
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 align-self-start text">
+				<h1>Mealmapp - Global food management system</h1>
+				<p>Official site of project personal meal recommendation system.
+				Calculation based on data of vital statistic, taste preferences and history of consumption. Important part of the project that all personal information belongs only to user and never used for advertisment or etc.</p>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid text block">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 v-padding" style="font-weight: 300;">
+					<p><a href="#">About project</a></p>
+					<p><a href="#">App</a></p>
+					<p><a href="#">News</a></p>
+					<p><a href="#">Company</a></p>
+					<p><a href="#">Blog</a></p>
+				</div>
+			</div>
+			
+			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
+				<div class="col-12 v-padding">
+					<p><a href="#">Catalog</a></p>
+					<p><a href="#">Support</a></p>
+					<p><a href="#">Service</a></p>
+					<p><a href="#">Payment</a></p>
+					<p><a href="#">Delivery</a></p>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
+				<div class="col-12 tile" style="background-image: url(./company.png); background-repeat: no-repeat; background-size: cover;">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12 v-padding"><p><a href="#">Future Starts LTD.</a></p>
+								<p>123007 Moscow, Presnenskaya nab. 8</p>
+								<p><a href="mailto:send_letter@mealmapp.io">send_letter@mealmapp.io</a></p>
+							</div>
+							<div class="col-12 v-padding">
+								<p>Social icons</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="col-12 text v-padding">© 2019 Mealmapp — personal nutrition assistant. All rights reserved. <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a></div>
+	</div>
+</body>
