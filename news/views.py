@@ -7,5 +7,5 @@ def news_list(request):
 	return render(request, 'news/news_list.html', {'news': news})
 
 def news_detail(request, url):
-	News = get_object_or_404(News, url=url)
+	news = get_object_or_404(News, url=url)
 	return render(request, 'news/news_detail.html', {'news': news})
