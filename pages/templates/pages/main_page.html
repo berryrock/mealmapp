@@ -2,9 +2,9 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>Mealmapp - Global food management system</title>
-	<meta name="keywords" content=""/>
-	<meta name="description" content=""/>
+	<title>{{ page.title }}</title>
+	<meta name="keywords" content="{{ page.keywords }}"/>
+	<meta name="description" content="{{ page.desc }}"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- Bootstrap CSS -->
@@ -163,7 +163,7 @@
 			</div>
 		</div>
 	</div>
-	<img src="./images/{{ page.url }}/louie-animation.png" width="100%">
+	<img src="/media/{{ page.url }}/louie-animation.png" width="100%">
 	<div class="container-fluid text bot-pad">
 		<div class="row">
 			<div class="col-lg-7 col-xs-12 align-self-start title">
@@ -175,7 +175,9 @@
 			{% for news in last_news %}
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile inner">
-					<img src="./images/{{ news.url }}/{{ news.picture }}">
+					{% if news.main_picture %}
+					<img src="/media/news/{{ news.main_picture }}">
+					{% endif %}
 					<div class="col-12 v-padding">
 						<p>{{ news.title }}</p>
 						<a href="{% url 'news_detail' url=news.url %}">Read more ---></a>
@@ -188,23 +190,29 @@
 				<div class="col-12 tile no-border">
 					<div class="col-12 v-padding">
 						<p>Check all news about project status, company life and community development</p>
-						<a href="./news/">Browse more ---></a>
+						<a href="/news/">Browse more ---></a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="banner block" style="background-image: url(images/{{ page.url }}//banner.png); background-repeat: no-repeat;">
+	{% if banners %}
+
+	{% for banner in banners %}
+	<div class="banner block" style="background-image: url(/media/{{ page.url }}/{{ banner.image }}); background-repeat: no-repeat;">
 		<div class="container-fluid text">
 			<div class="row">
 				<div class="col-lg-6 col-xs-12 align-self-start position">
-					<p>New region openings this Autumn</p>
-					<p>Follow actual information of event</p>
-					<a href="#">More information ---></a>
+					<p>{{ banner.title }}</p>
+					<p>{{ banner.desc|linebreaksbr }}</p>
+					<a href="{{ banner.link }}">{{ banner.button_text }} ---></a>
 				</div>
 			</div>
 		</div>
 	</div>
+	{% endfor %}
+
+	{% endif %}
 	<div class="container-fluid text">
 		<div class="row">
 			<div class="col-lg-7 col-xs-12 align-self-start title">
@@ -214,7 +222,7 @@
 		<div class="row border-grad bot-pad">
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile outter">
-					<img src="./images/{{ page.url }}//device.png">
+					<img src="/media/{{ page.url }}/device.png">
 				</div>
 				<div class="col-12 v-padding">
 					<p>Smart scales<br>
@@ -225,7 +233,7 @@
 			
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile outter">
-					<img src="./images/{{ page.url }}//device.png">
+					<img src="/media/{{ page.url }}/device.png">
 				</div>
 				<div class="col-12 v-padding">
 					<p>Smart scales<br>
@@ -234,7 +242,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
-				<div class="col-12 tile outter" style="background-image: url(./images/{{ page.url }}//catalog.png); background-repeat: no-repeat; background-size: cover;">
+				<div class="col-12 tile outter" style="background-image: url(/media/{{ page.url }}/catalog.png); background-repeat: no-repeat; background-size: cover;">
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-12 v-padding"><a href="#">Watch full device catalog ---></a>
@@ -260,9 +268,8 @@
 	<div class="container-fluid top-pad">
 		<div class="row">
 			<div class="col-lg-12 col-xs-12 align-self-start text">
-				<h1>Mealmapp - Global food management system</h1>
-				<p>Official site of project personal meal recommendation system.
-				Calculation based on data of vital statistic, taste preferences and history of consumption. Important part of the project that all personal information belongs only to user and never used for advertisment or etc.</p>
+				<h1>{{ page.title }}</h1>
+				<p>{{ page.seo_text|linebreaksbr }}</p>
 			</div>
 		</div>
 	</div>
@@ -288,7 +295,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
-				<div class="col-12 tile" style="background-image: url(images/{{ page.url }}//company.png); background-repeat: no-repeat; background-size: cover;">
+				<div class="col-12 tile" style="background-image: url(media/{{ page.url }}/company.png); background-repeat: no-repeat; background-size: cover;">
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-12 v-padding"><p><a href="#">Future Starts LTD.</a></p>
