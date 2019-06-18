@@ -47,6 +47,16 @@ class Dish(models.Model):
 
 	#Add dish
 
+class Product(models.Model):
+	name = models.CharField(max_length=200)
+	region = models.CharField(max_length=200)
+	TYPE = models.CharField(max_length=200)
+	comments = models.CharField(max_length=200)
+	avg_point = models.PositiveSmallIntegerField(default=3)
+
+	def __str__(self):
+		return self.name
+
 class MealHistory(models.Model):
 	date_time = models.DateTimeField(auto_now_add=True)
 	user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,db_index=False) #user id

@@ -35,8 +35,8 @@ class User:
         meal_history.add_weight(user_id, weight)
 
     def check_meal(self, user_id, meal_name):
-        meal_history.add_meal(user_id, meal_name)
         info = preference.get_dish_info(user_id, meal_name)
+        meal_history.add_meal(user_id, meal_name)
         try:
             if float(info[1]) < 3.0 :
                 pref_mess = "probably you would not like that dish"
@@ -61,11 +61,10 @@ class User:
             message = info
         return message
 
-    def accept_meal(self, user_id, meal):
+    def accept_meal(self, user_id, meal, point=0):
         meal_name = meal[0]
-        print(meal_name)
-        point = meal[1]
-        print(point)
+        #print(meal_name)
+        #print(point)
         meal_history.accept_meal(user_id, meal_name, point)
 
     def calculate_recommendations(self, user_id):

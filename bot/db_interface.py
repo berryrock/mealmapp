@@ -4,7 +4,7 @@ import time
 class DBhelper:
     def __init__(self, dbname="mealmapp.db"):
         self.dbname = dbname
-        self.conn = sqlite3.connect(dbname)
+        self.conn = sqlite3.connect(dbname, timeout=10)
         self.cursor = self.conn.cursor()
 
 class Preference_tables(DBhelper):
@@ -32,16 +32,17 @@ class Preference_tables(DBhelper):
         stmt1 = 'SELECT point FROM "{}_user_dishes" WHERE name = (?)'.format(user_id)
         self.cursor.execute(stmt1, (dish_name,))
         self.conn.commit()
-        dish_point = self.cursor.fetchone()
+        dish_point = self.cursor.fetchall()
         stmt2 = 'SELECT repeating FROM "{}_user_dishes" WHERE name = (?)'.format(user_id)
         self.cursor.execute(stmt2, (dish_name,))
         self.conn.commit()
-        dish_repeating = self.cursor.fetchone()
+        dish_repeating = self.cursor.fetchall()
         dish_info = []
         if dish_point and dish_repeating:
             dish_info.append(dish_name)
-            dish_info.append(dish_point[0])
-            dish_info.append(dish_repeating[0])
+            dish_info.append(dish_point[0][0])
+            dish_info.append(dish_repeating[0][0])
+            print(dish_info)
         else:
             dish_info = "No information about dish. We will add it later"
             self.cursor.execute('INSERT INTO "new_dishes" (name) VALUES (?)', (dish_name,))
@@ -161,7 +162,7 @@ class Meal_history(DBhelper):
         args = (date, user_id, meal_name, time, status)
         try:
             self.conn.execute(stmt, args)
-            print(user_id, meal_name)
+            print('adding:', user_id, meal_name)
             self.conn.commit()
         except sqlite3.IntegrityError:
             print("Error in adding meal")
@@ -169,19 +170,16 @@ class Meal_history(DBhelper):
     def accept_meal(self, user_id, meal_name, point):
         date = "test"
         status = "accept"
-        data = (meal_name, user_id, date)
-        args = []
-        args.append(status)
-        args.append(point)
-        stmt = 'UPDATE meal_history SET status = (?) AND point = (?) WHERE meal_name = "{}" AND user_id = {} AND date = "{}"'.format(*data)
+        data = (date, user_id, meal_name)
+        stmt = 'UPDATE meal_history SET point = (?) AND status = "accept" WHERE date = "{}" AND user_id = {} AND meal_name = "{}"'.format(*data)
         try:
-            self.conn.executemany(stmt, (args,))
-            print(user_id, meal_name)
+            self.conn.execute(stmt, (point,))
+            print('accepting:', user_id, meal_name)
             self.conn.commit()
         except sqlite3.IntegrityError:
             print("Error in accepting meal")
 
-    def delete_meal(self, user_id, meal_name,):
+    def delete_meal(self, user_id, meal_name):
         stmt = "DELETE FROM meal_history WHERE user_id = (?) AND meal_name = (?)"
         args = (user_id, meal_name)
         try:

@@ -10,7 +10,7 @@ step_weight = []
 step_meal = []
 user_choice = {}
 
-token = "824907378:AAHvvoezizNc3rvBuugigsUvkBhLlFMg5_k"
+token = ""
 URL = "https://api.telegram.org/bot{}/".format(token)
 
 main_menu = ("/recommedations", "/meal", "/add_weight")
@@ -164,6 +164,7 @@ def follow_command(user, user_id, text, chat):
 def handle_updates(updates):
     for update in updates["result"]:
         step = None
+        #print(user_choice)
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
