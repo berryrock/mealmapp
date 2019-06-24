@@ -3,8 +3,8 @@ from django.utils import timezone
 from .models import News
 
 def news_list(request):
-	news = News.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-	return render(request, 'news/news_list.html', {'news': news})
+	newses = News.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+	return render(request, 'news/news_list.html', {'newses': newses})
 
 def news_detail(request, url):
 	news = get_object_or_404(News, url=url)

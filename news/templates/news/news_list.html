@@ -10,15 +10,15 @@
 		</div>
 		<div class="row">
 
-			{% for new in news %}
+			{% for news in newses %}
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 tile inner">
-					{% if new.main_picture %}
-					<img src="/media/news/{{ new.main_picture }}">
+					{% if news.main_picture %}
+					<img src="/media/news/{{ news.main_picture }}">
 					{% endif %}
 					<div class="col-12 v-padding">
-						<p>{{ new.title }}</p>
-						<a href="{% url 'news_detail' url=new.url %}">Read more ---></a>
+						<p>{{ news.title }}</p>
+						<a href="{% url 'news_detail' url=news.url %}">Read more ---></a>
 					</div>
 				</div>
 			</div>

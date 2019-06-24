@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>{{ page.title }}</title>
+	<title>{% if page.title %}{{ page.title }}{% elif news.title %}{{ news.title }}{% elif newses %}Mealmapp - Last news of the project{% elif post.title %}{{ post.title }}{% elif posts %}Mealmapp - Blog of developers{% endif %}</title>
 	<meta name="keywords" content="{{ page.keywords }}"/>
 	<meta name="description" content="{{ page.desc }}"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,7 +35,7 @@
 					<a class="nav-link" href="/news/">News</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Company</a>
+					<a class="nav-link" href="/blog/">Blog</a>
 				</li>
 			</ul>
 		</div>
@@ -50,12 +50,10 @@
 				<div class="col-12 v-padding" style="font-weight: 300;">
 					<p><a href="#">About project</a></p>
 					<p><a href="#">App</a></p>
-					<p><a href="#">News</a></p>
-					<p><a href="#">Company</a></p>
-					<p><a href="#">Blog</a></p>
+					<p><a href="/news/">News</a></p>
+					<p><a href="/blog/">Blog</a></p>
 				</div>
 			</div>
-			
 			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
 				<div class="col-12 v-padding">
 					<p><a href="#">Catalog</a></p>

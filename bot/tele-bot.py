@@ -10,7 +10,7 @@ step_weight = []
 step_meal = []
 user_choice = {}
 
-token = ""
+token = "824907378:AAHvvoezizNc3rvBuugigsUvkBhLlFMg5_k"
 URL = "https://api.telegram.org/bot{}/".format(token)
 
 main_menu = ("/recommedations", "/meal", "/add_weight")

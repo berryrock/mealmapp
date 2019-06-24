@@ -31,13 +31,6 @@ body {
 	background-size: 100% 1px;
 }
 
-.top-border-grad {
-	background-image: linear-gradient(90deg, transparent, #ececec 50%, transparent); /* указываем угол  0deg для того чтобы градиент начинался от левого края, иначе градиент пойдёт сверху */
-	background-repeat: no-repeat; /* убираем повторение градиента, необходимо для работы background-size */
-	background-position: 50% 0%;
-	background-size: 100% 1px;
-}
-
 .navbar-toggler {
 	border: 1px solid #ececec;
 }
