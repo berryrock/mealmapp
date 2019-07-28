@@ -1,0 +1,91 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+
+	<div class="container-fluid text position">
+		<div class="row">
+			<div class="col-lg-10 col-xs-12 align-self-start">
+				<p>Это система, которая одновременно мониторит производство продуктов и рекомендует персональное питание для каждого человека на основании индивидуальных предпочтений и физических показателей, а также накопленного опыта всех участников.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid text">
+		<div class="row">
+			<div class="col-lg-7 col-xs-12 align-self-start title">
+				<p>Открытость и прозрачность</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10 col-xs-12 align-self-start">
+				<p>Один из главных критериев успеха проекта - доверие пользователей и партнеров, поэтому Mealmapp строится на принципах Open startup, когда все основные показатели доступны для просмотра любому желающему, а также разработчики делиться новостями и решениями в своем блоге.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid text">
+		<div class="row">
+			<div class="col-lg-7 col-xs-12 align-self-start title text" style="padding-bottom: 0px">
+				<p>Main metrics</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-7 top-border-grad bot-border-grad">
+					<div class="row">
+						<div class="col-lg-3 col-xs-6" style="">
+							<p class="text-center v-padding">Users<br><br></p>
+							<p class="text-center title v-padding" style="">{{ users }}</p>
+						</div>
+						<div class="col-lg-3 col-xs-6" style="padding-top: 0px;">
+							<p class="text-center v-padding">Dishes<br><br></p>
+							<p class="text-center title v-padding" style="">{{ dishes }}</p>
+						</div>
+						<div class="col-lg-3 col-xs-6" style="padding-top: 0px;">
+							<p class="text-center v-padding">Products<br><br></p>
+							<p class="text-center title v-padding" style="">{{ products }}</p>
+						</div>
+						<div class="col-lg-3 col-xs-6" style="padding-top: 0px;">
+							<p class="text-center v-padding">Meals<br>(for last 24h)</p>
+							<p class="text-center title v-padding" style="">{{ meals }}</p>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid text">
+		<div class="row">
+			<div class="col-lg-7 col-xs-12 align-self-start title">
+				<p>Персональный менеджер питания для каждого</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10 col-xs-12 align-self-start">
+				<p>С помощью мобильного приложения человеку становится доступна общий накопленный опыт и статистика о популярных блюдах, продуктах и их влиянии на организм. С помощью обобщенных геоданных выстраивается точная картина о том, какие блюда сейчас предпочтительны в том или ином регионе.</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid text">
+		<div class="row">
+			<div class="col-lg-7 col-xs-12 align-self-start title">
+				<p>Все данные у пользователя</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-10 col-xs-12 align-self-start">
+				<p>Персональная информация о человеке хранится и остается доступной только на его устройстве. На сервера Mealmapp поступает лишь обобщенная информация о потреблении того или иного блюда и продукта. Проект является лишь провайдером услуг для всех пользователей системы, а не хранилищем данных.</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid top-pad top-border-grad">
+		<div class="row">
+			<div class="col-lg-12 col-xs-12 align-self-start text">
+				<h1>{{ page.title }}</h1>
+				<p>{{ page.seo_text|linebreaksbr }}</p>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

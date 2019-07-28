@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import AppUser, MealHistory, Dish, Product
+from api.models import AppUser, MealHistory, Dish, Product, RegionVector
 
 class MealHistorySerializer(serializers.ModelSerializer):
 	user = serializers.ReadOnlyField(source='user.id')
@@ -22,6 +22,10 @@ class DishSerializer(serializers.ModelSerializer):
 		model = Dish
 		fields = ('id', 'name', 'cousine', 'TYPE', 'products', 'comments', 'avg_point')
 
+class RegionVectorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegionVector
+        fields = ('id', 'date_time', 'dishes', 'region')
 
 '''
     def create(self, validated_data):

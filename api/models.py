@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from rest_framework.authtoken.models import Token
-from map.models import AppUser, MealHistory, Dish, Product
+from map.models import AppUser, MealHistory, Dish, Product, RegionVector, Region
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 

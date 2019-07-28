@@ -1,8 +1,7 @@
 from rest_framework import generics, permissions
-from api.models import AppUser, MealHistory, Dish, Product
-from api.serializers import MealHistorySerializer, UserSerializer, DishSerializer
+from api.models import AppUser, MealHistory, Dish, Product, Region, RegionVector
+from api.serializers import MealHistorySerializer, UserSerializer, DishSerializer, RegionVectorSerializer
 from api.permissions import IsOwnerOrReadOnly
-
 
 class MealList(generics.ListCreateAPIView):
 	"""
@@ -42,3 +41,9 @@ class DishDetailed(generics.RetrieveUpdateAPIView):
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 	queryset = Dish.objects.all()
 	serializer_class = DishSerializer
+
+class RegionVectorList(generics.ListAPIView):
+	permission_classes = (permissions.IsAuthenticated,)
+	regionNumber = Region.objects.count()
+	queryset = RegionVector.objects.order_by('pk')[:1]
+	serializer_class = RegionVectorSerializer

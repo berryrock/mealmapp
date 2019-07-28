@@ -23,8 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
     path('map/', include('map.urls')),
-    path('blog/', include('blog.urls')),
-    path('news/', include('news.urls')),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.obtain_auth_token),
