@@ -9,11 +9,11 @@ class MealHistorySerializer(serializers.ModelSerializer):
 		fields = ('id', 'date_time', 'user', 'dish', 'point', 'location', 'weight', 'acne', 'accepted')
 
 class UserSerializer(serializers.ModelSerializer):
-	meals = serializers.PrimaryKeyRelatedField(many=True,queryset=MealHistory.objects.all())
+	#meals = serializers.PrimaryKeyRelatedField(many=True,queryset=MealHistory.objects.all())
 
 	class Meta:
 		model = AppUser
-		fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length', 'meals')
+		fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
 
 class DishSerializer(serializers.ModelSerializer):
 	#dishes = serializers.PrimaryKeyRelatedField(many=True,queryset=Dish.objects.all())

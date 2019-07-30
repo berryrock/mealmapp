@@ -8,7 +8,7 @@ class MealList(generics.ListCreateAPIView):
 	List all meals, or create a new meal.
 	"""
 	permission_classes = (permissions.IsAuthenticated,)
-	queryset = MealHistory.objects.all()
+	queryset = MealHistory.objects.get_queryset().order_by('-pk')
 	serializer_class = MealHistorySerializer
 
 	def perform_create(self, serializer):
@@ -24,7 +24,7 @@ class MealDetailed(generics.RetrieveUpdateDestroyAPIView):
 
 class UserList(generics.ListCreateAPIView):
 	permission_classes = (permissions.IsAuthenticated,)
-	queryset = AppUser.objects.all()
+	queryset = AppUser.objects.get_queryset().order_by('id')
 	serializer_class = UserSerializer
 
 class UserDetailed(generics.RetrieveUpdateAPIView):
@@ -34,7 +34,7 @@ class UserDetailed(generics.RetrieveUpdateAPIView):
 
 class DishList(generics.ListCreateAPIView):
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-	queryset = Dish.objects.all()
+	queryset = Dish.objects.get_queryset().order_by('id')
 	serializer_class = DishSerializer
 
 class DishDetailed(generics.RetrieveUpdateAPIView):
@@ -45,5 +45,5 @@ class DishDetailed(generics.RetrieveUpdateAPIView):
 class RegionVectorList(generics.ListAPIView):
 	permission_classes = (permissions.IsAuthenticated,)
 	regionNumber = Region.objects.count()
-	queryset = RegionVector.objects.order_by('pk')[:1]
+	queryset = RegionVector.objects.get_queryset().order_by('-pk')[:1]
 	serializer_class = RegionVectorSerializer

@@ -31,6 +31,17 @@ def update_dish_avg_point():
 			dish.avg_point += 1
 		dish.save()
 
+def check_entry(item,LIST):
+	num_entries = 0
+	item = str(item)
+	LIST = str(LIST)
+	try:
+		LIST.index(item)
+		num_entries += 1 
+	except ValueError:
+		pass
+	return num_entries
+
 def calculate_region():
 	print(timezone.now(), "/Starting vector calculation/")
 	prefered_dishes = []
@@ -41,15 +52,10 @@ def calculate_region():
 	for dish in all_dishes:
 		num_pref_prod = 0
 		for product in pref_products:
-			if product in dish.products:
-				num_pref_prod += 1 
-			else:
-				pass
+			num_pref_prod += check_entry(product,dish.products)
 		if num_pref_prod > 1:
 			prefered_dishes.append(dish.name)
-	try:
-		new_vector = RegionVector()
-		new_vector.dishes = prefered_dishes
-		print(timezone.now(), prefered_dishes)
-	except:
-		print(timezone.now(), 'error')
+	new_vector = RegionVector()
+	new_vector.dishes = prefered_dishes
+	new_vector.save(prefered_dishes)
+	print(timezone.now(), prefered_dishes)

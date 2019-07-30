@@ -52,23 +52,24 @@ class Dish(models.Model):
 	cousine = models.CharField(max_length=200)
 	TYPE = models.CharField(max_length=200)
 	tags = models.CharField(max_length=200,null=True,blank=True)
-	specials_cousine = models.CharField(max_length=200,null=True,blank=True)
 	products = models.TextField(null=True,blank=True,help_text="All words in lowercase and no spaces, use comma as a divider")
+	carbs = models.CharField(max_length=200,null=True,blank=True)
+	fats = models.CharField(max_length=200,null=True,blank=True)
+	proteins = models.CharField(max_length=200,null=True,blank=True)
+	kcal = models.CharField(max_length=200,null=True,blank=True)
 	comments = models.CharField(null=True,blank=True,max_length=200)
-	region = models.ForeignKey(Region,blank=True,null=True,on_delete=models.SET_NULL,db_index=False)
 	avg_point = models.PositiveSmallIntegerField(default=30)
 	frequency = models.CharField(max_length=200,default=30)
-	kcal = models.CharField(max_length=200,null=True,blank=True)
-	proteins = models.CharField(max_length=200,null=True,blank=True)
-	fats = models.CharField(max_length=200,null=True,blank=True)
-	carbs = models.CharField(max_length=200,null=True,blank=True)
+	specials_rules = models.CharField(max_length=200,null=True,blank=True)
+	region = models.ForeignKey(Region,blank=True,null=True,on_delete=models.SET_NULL,db_index=False)
+	parsed = models.BooleanField()
 
 	def __str__(self):
 		return self.name
 
 class Product(models.Model):
 	name = models.CharField(max_length=200)
-	group = models.CharField(max_length=200)
+	TYPE = models.CharField(max_length=200,null=True,blank=True)
 	avg_point = models.PositiveSmallIntegerField(default=30)
 	kcal = models.CharField(max_length=200,null=True,blank=True)
 	proteins = models.CharField(max_length=200,null=True,blank=True)
@@ -88,7 +89,7 @@ class MealHistory(models.Model):
 	user = models.ForeignKey('auth.User',null=True,blank=True,on_delete=models.SET_NULL,db_index=False) #user id
 	weight = models.PositiveSmallIntegerField(blank=True,null=True)
 	acne = models.PositiveSmallIntegerField(blank=True,null=True)
-	accepted = models.BooleanField()
+	accepted = models.BooleanField(default=False)
 
 	def save(self, *args, **kwargs):
 		super(MealHistory, self).save(*args, **kwargs)

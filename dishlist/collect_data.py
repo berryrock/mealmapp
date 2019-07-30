@@ -1,8 +1,12 @@
 from dbhelper import DBhelper
-import datetime
 
 
 database = DBhelper()
+
+'''Here is default dish data
+First number is average dish point
+Second number start frequency'''
+default_data = [30, 10]
 
 def formating(string):
 	string = ','.join(string)
@@ -19,7 +23,7 @@ def cousine_tags_checking(dish,table_name):
 		else:
 			tags = data
 
-def collect_dish_info(dish,table_name):
+def collect_dish_info(dish,table_name,region='russia'):
 	name = dish
 	сousine = ""
 	tags = ""
@@ -30,26 +34,21 @@ def collect_dish_info(dish,table_name):
 	products = database.get_filtered('dish_products_name','dish_name',dish,table_name)
 	products = formating(products)
 	carbs = database.get_filtered_one('dish_carbs','dish_name',dish,table_name)
+	if carbs:
+		carbs.replace(";", ",")
 	fats = database.get_filtered_one('dish_fats','dish_name',dish,table_name)
+	if fats:
+		fats.replace(";", ",")
 	proteins = database.get_filtered_one('dish_belki','dish_name',dish,table_name)
-	kcal = database.get_filtered_one('dish_kcal','dish_name',dish,table_name)
-	dish_info = [name, cousine, TYPE, tags, products, carbs, fats, proteins, kcal]
+	if proteins:
+		proteins.replace(";", ",")
+	kcal = str(database.get_filtered_one('dish_kcal','dish_name',dish,table_name))
+	if kcal:
+		kcal.replace(";", ",")
+	comments = database.get_filtered_one('dish_comments','dish_name',dish,table_name)
+	avg_point = default_data[0]
+	frequency = default_data[1]
+	region_id = region
+	special_rules = ''
+	dish_info = [name, cousine, TYPE, tags, products, carbs, fats, proteins, kcal, comments, avg_point, frequency, special_rules, region_id]
 	return dish_info
-
-def main():
-	new_table = input('Please, add name of the table with new recipes: ').strip()
-	new_dishes = database.get_uniq_values('dish_name', new_table)
-	print()
-	print()
-	for dish in new_dishes:
-		dish_data = collect_dish_info(dish,new_table)
-		database.insert_into_dishes(dish_data)
-		print(dish, 'migrated')
-		print()
-		print()
-	print('DONE')
-	print()
-	print()
-
-if __name__ == '__main__':
-	main()
