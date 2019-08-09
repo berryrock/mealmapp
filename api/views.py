@@ -32,6 +32,11 @@ class UserDetailed(generics.RetrieveUpdateAPIView):
 	queryset = AppUser.objects.all()
 	serializer_class = UserSerializer
 
+#class UserVector(generics.RetrieveAPIView):
+#	permission_classes = (permissions.IsAuthenticated,)
+#	queryset = AppUser.objects.all()
+#	serializer_class = UserVectorSerializer	
+
 class DishList(generics.ListCreateAPIView):
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 	queryset = Dish.objects.get_queryset().order_by('id')
@@ -45,5 +50,5 @@ class DishDetailed(generics.RetrieveUpdateAPIView):
 class RegionVectorList(generics.ListAPIView):
 	permission_classes = (permissions.IsAuthenticated,)
 	regionNumber = Region.objects.count()
-	queryset = RegionVector.objects.get_queryset().order_by('-pk')[:1]
+	queryset = RegionVector.objects.get_queryset().order_by('-pk')[:regionNumber]
 	serializer_class = RegionVectorSerializer

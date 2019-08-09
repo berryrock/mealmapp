@@ -3,6 +3,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from django.utils import timezone
 
+'''
 def update_product_avg_point():
 	print(timezone.now(), "/Updating avg product points/")
 	last_hour_meals = MealHistory.objects.filter(date_time__gte=timezone.now()+timezone.timedelta(hours=1))
@@ -17,7 +18,9 @@ def update_product_avg_point():
 			else:
 				product.avg_point += 1
 			product.save()
+'''
 
+'''
 def update_dish_avg_point():
 	print(timezone.now(), "/Updating avg dish points/")
 	last_hour_meals = MealHistory.objects.filter(date_time__gte=timezone.now()+timezone.timedelta(hours=1))
@@ -30,6 +33,7 @@ def update_dish_avg_point():
 		else:
 			dish.avg_point += 1
 		dish.save()
+'''
 
 def check_entry(item,LIST):
 	num_entries = 0
@@ -45,8 +49,8 @@ def check_entry(item,LIST):
 def calculate_region():
 	print(timezone.now(), "/Starting vector calculation/")
 	prefered_dishes = []
-	update_product_avg_point()
-	update_dish_avg_point()
+	#update_product_avg_point()
+	#update_dish_avg_point()
 	pref_products = Product.objects.order_by('avg_point')[:20]
 	all_dishes = Dish.objects.order_by('avg_point')
 	for dish in all_dishes:

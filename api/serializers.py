@@ -15,6 +15,13 @@ class UserSerializer(serializers.ModelSerializer):
 		model = AppUser
 		fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
 
+class UserVectorSerialier(serializers.ModelSerializer):
+    #vector = AppUser.get_vector(x)
+
+    class Meta:
+        model = AppUser
+        fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
+
 class DishSerializer(serializers.ModelSerializer):
 	#dishes = serializers.PrimaryKeyRelatedField(many=True,queryset=Dish.objects.all())
 

@@ -5,6 +5,14 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+def point_update(new_point,old_point):
+	if new_point == 1:
+		old_point += 2
+	elif new_point == 0:
+		old_point -= 1
+	else:
+		old_point += 1
+	return old_point
 
 class Region(models.Model):
 	name = models.CharField(max_length=200, primary_key=True)
@@ -29,6 +37,10 @@ class AppUser(models.Model):
 	
 	def __str__(self):
 		return str(self.user)
+
+	def get_vector(self):
+		vector = "test"
+		return vector
 
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
@@ -92,6 +104,24 @@ class MealHistory(models.Model):
 	accepted = models.BooleanField(default=False)
 
 	def save(self, *args, **kwargs):
+		'''first scenario meal added
+		that means program should take dish name and products and update their point and frequency'''
+		if self.dish:
+			dish = Dish.objects.filter(name=self.dish)
+			dish_point = dish.values_list("avg_point", flat=True)[0]
+			dish_point = point_update(self.point,dish_point)
+			Dish.objects.filter(name=self.dish).update(avg_point=dish_point)
+			dish_products = dish.values_list("products", flat=True)[0]
+			products = dish_products.split(',')
+			for product in products:
+				product_point = Product.objects.filter(name=product)
+				point = product_point.values_list("avg_point", flat=True)[0]
+				point = point_update(self.point,point)
+				Product.objects.filter(name=product).update(avg_point=point)
+		'''first scenario weight added
+		program should update user weight'''
+		if self.weight:
+			AppUser.objects.filter(user=self.user).update(weigth=self.weight)
 		super(MealHistory, self).save(*args, **kwargs)
 
 	def __str__(self):
