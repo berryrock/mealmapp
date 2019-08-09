@@ -97,7 +97,7 @@ class MealHistory(models.Model):
 	date_time = models.DateTimeField(auto_now_add=True)
 	dish = models.ForeignKey(Dish,null=True,blank=True,on_delete=models.SET_NULL,db_index=False) #dish id
 	point = models.NullBooleanField()
-	location = models.CharField(max_length=200,blank=True)
+	location = models.CharField(max_length=200,default='russia')
 	user = models.ForeignKey('auth.User',null=True,blank=True,on_delete=models.SET_NULL,db_index=False) #user id
 	weight = models.PositiveSmallIntegerField(blank=True,null=True)
 	acne = models.PositiveSmallIntegerField(blank=True,null=True)
@@ -107,7 +107,7 @@ class MealHistory(models.Model):
 		'''first scenario meal added
 		that means program should take dish name and products and update their point and frequency'''
 		if self.dish:
-			dish = Dish.objects.filter(name=self.dish)
+			dish = Dish.objects.filter(name=self.dish,region=self.location)
 			dish_point = dish.values_list("avg_point", flat=True)[0]
 			dish_point = point_update(self.point,dish_point)
 			Dish.objects.filter(name=self.dish).update(avg_point=dish_point)
