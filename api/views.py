@@ -1,6 +1,10 @@
-from rest_framework import generics, permissions
+from django.http import Http404
+from rest_framework import generics, permissions, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.contrib.auth.models import User
 from api.models import AppUser, MealHistory, Dish, Product, Region, RegionVector
-from api.serializers import MealHistorySerializer, UserSerializer, DishSerializer, RegionVectorSerializer
+from api.serializers import MealHistorySerializer, UserSerializer, UserVectorSerializer, DishSerializer, RegionVectorSerializer
 from api.permissions import IsOwnerOrReadOnly
 
 class MealList(generics.ListCreateAPIView):
@@ -32,10 +36,20 @@ class UserDetailed(generics.RetrieveUpdateAPIView):
 	queryset = AppUser.objects.all()
 	serializer_class = UserSerializer
 
-#class UserVector(generics.RetrieveAPIView):
-#	permission_classes = (permissions.IsAuthenticated,)
-#	queryset = AppUser.objects.all()
-#	serializer_class = UserVectorSerializer	
+class UserVector(APIView):
+	def get_object(self, token):
+		user = User.objects.get(auth_token=token)
+		user_id = user.id
+		try:
+			return AppUser.objects.get(pk=user_id)
+		except AppUser.DoesNotExist:
+			raise Http404
+
+	def get(self, request, token, format=None):
+		user = self.get_object(token)
+		vector = user.get_vector()
+		serializer = UserVectorSerializer(vector)
+		return Response(serializer.data)
 
 class DishList(generics.ListCreateAPIView):
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)

@@ -39,8 +39,25 @@ class AppUser(models.Model):
 		return str(self.user)
 
 	def get_vector(self):
-		vector = "test"
-		return vector
+		region_vector = RegionVector.objects.order_by('-pk')[:1]
+		dishes = region_vector.values_list("dishes", flat=True)[0]
+		dishes = dishes.replace("]", "").replace("[", "").replace("""'""", "")
+		dishes = dishes.split(',')
+		i = 0
+		vector = ""
+		for dish in dishes:
+			if dish[0] == " ":
+				dish = dish[1:]
+			if i < 3:
+				vector += dish
+				vector += ","
+				i += 1
+			else:
+				break
+
+		print(vector)
+		result = {'id': self.id, 'vector': vector}
+		return result
 
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
@@ -60,7 +77,7 @@ class Device(models.Model):
 		return self.name
 
 class Dish(models.Model):
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200, primary_key=True)
 	cousine = models.CharField(max_length=200)
 	TYPE = models.CharField(max_length=200)
 	tags = models.CharField(max_length=200,null=True,blank=True)
@@ -107,11 +124,13 @@ class MealHistory(models.Model):
 		'''first scenario meal added
 		that means program should take dish name and products and update their point and frequency'''
 		if self.dish:
+			print(self.dish)
 			dish = Dish.objects.filter(name=self.dish,region=self.location)
+			print(dish)
 			dish_point = dish.values_list("avg_point", flat=True)[0]
+			dish_products = dish.values_list("products", flat=True)[0]
 			dish_point = point_update(self.point,dish_point)
 			Dish.objects.filter(name=self.dish).update(avg_point=dish_point)
-			dish_products = dish.values_list("products", flat=True)[0]
 			products = dish_products.split(',')
 			for product in products:
 				product_point = Product.objects.filter(name=product)

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.response import Response
 from api.models import AppUser, MealHistory, Dish, Product, RegionVector
 
 class MealHistorySerializer(serializers.ModelSerializer):
@@ -15,12 +16,9 @@ class UserSerializer(serializers.ModelSerializer):
 		model = AppUser
 		fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
 
-class UserVectorSerialier(serializers.ModelSerializer):
-    #vector = AppUser.get_vector(x)
-
-    class Meta:
-        model = AppUser
-        fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
+class UserVectorSerializer(serializers.Serializer):
+   id = serializers.IntegerField(read_only=True)
+   vector = serializers.CharField(required=False, allow_blank=True)
 
 class DishSerializer(serializers.ModelSerializer):
 	#dishes = serializers.PrimaryKeyRelatedField(many=True,queryset=Dish.objects.all())
