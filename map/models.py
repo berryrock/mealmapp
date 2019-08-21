@@ -59,6 +59,10 @@ class AppUser(models.Model):
 		result = {'id': self.id, 'vector': vector}
 		return result
 
+	def get_dish_info(self, dish):
+		string = "This feature still in development"
+		return string
+
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
 		if created:
@@ -78,8 +82,8 @@ class Device(models.Model):
 
 class Dish(models.Model):
 	name = models.CharField(max_length=200, primary_key=True)
-	cousine = models.CharField(max_length=200)
-	TYPE = models.CharField(max_length=200)
+	cousine = models.CharField(max_length=200,null=True)
+	TYPE = models.CharField(max_length=200,null=True)
 	tags = models.CharField(max_length=200,null=True,blank=True)
 	products = models.TextField(null=True,blank=True,help_text="All words in lowercase and no spaces, use comma as a divider")
 	carbs = models.CharField(max_length=200,null=True,blank=True)
@@ -91,7 +95,7 @@ class Dish(models.Model):
 	frequency = models.CharField(max_length=200,default=30)
 	specials_rules = models.CharField(max_length=200,null=True,blank=True)
 	region = models.ForeignKey(Region,blank=True,null=True,on_delete=models.SET_NULL,db_index=False)
-	parsed = models.BooleanField()
+	parsed = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.name

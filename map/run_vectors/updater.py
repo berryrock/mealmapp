@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
-from map.vector_updater import vector
+from map.run_vectors import vectors
 
         
 def start():

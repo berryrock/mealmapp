@@ -17,8 +17,17 @@ class UserSerializer(serializers.ModelSerializer):
 		fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
 
 class UserVectorSerializer(serializers.Serializer):
-   id = serializers.IntegerField(read_only=True)
-   vector = serializers.CharField(required=False, allow_blank=True)
+	id = serializers.IntegerField(read_only=True)
+	vector = serializers.CharField(required=False, allow_blank=True)
+
+class UserDishInfoSerializer(serializers.Serializer):
+	user = serializers.IntegerField(read_only=True)
+	dish_name = serializers.CharField(required=True, allow_blank=False)
+	dish_cousine = serializers.CharField(read_only=True, allow_blank=True) 
+	dish_desc = serializers.CharField(read_only=True, allow_blank=True) 
+
+	def create(self, data):
+		dish = Dish.objects.create(name=data)
 
 class DishSerializer(serializers.ModelSerializer):
 	#dishes = serializers.PrimaryKeyRelatedField(many=True,queryset=Dish.objects.all())
@@ -28,29 +37,29 @@ class DishSerializer(serializers.ModelSerializer):
 		fields = ('id', 'name', 'cousine', 'TYPE', 'products', 'comments', 'avg_point')
 
 class RegionVectorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RegionVector
-        fields = ('id', 'date_time', 'dishes', 'region')
+	class Meta:
+		model = RegionVector
+		fields = ('id', 'date_time', 'dishes', 'region')
 
 '''
-    def create(self, validated_data):
-        """
-        Create and return a new `meal` instance, given the validated data.
-        """
-        return Snippet.objects.create(**validated_data)
+	def create(self, validated_data):
+		"""
+		Create and return a new `meal` instance, given the validated data.
+		"""
+		return Snippet.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        """
-        Update and return an existing `meal` instance, given the validated data.
-        """
-        instance.date_time = validated_data.get('date_time', instance.date_time)
-        instance.user = validated_data.get('user', instance.user)
-        instance.dish = validated_data.get('dish', instance.dish)
-        instance.point = validated_data.get('point', instance.point)
-        instance.location = validated_data.get('location', instance.location)
-        instance.weight = validated_data.get('weight', instance.weight)
-        instance.acne = validated_data.get('acne', instance.acne)
-        instance.accepted = validated_data.get('accepted', instance.accepted)
-        instance.save()
-        return instance
+	def update(self, instance, validated_data):
+		"""
+		Update and return an existing `meal` instance, given the validated data.
+		"""
+		instance.date_time = validated_data.get('date_time', instance.date_time)
+		instance.user = validated_data.get('user', instance.user)
+		instance.dish = validated_data.get('dish', instance.dish)
+		instance.point = validated_data.get('point', instance.point)
+		instance.location = validated_data.get('location', instance.location)
+		instance.weight = validated_data.get('weight', instance.weight)
+		instance.acne = validated_data.get('acne', instance.acne)
+		instance.accepted = validated_data.get('accepted', instance.accepted)
+		instance.save()
+		return instance
 '''

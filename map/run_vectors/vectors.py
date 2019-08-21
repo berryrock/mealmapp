@@ -1,5 +1,5 @@
 from map.models import RegionVector, Dish, Product, MealHistory
-from apscheduler.schedulers.background import BackgroundScheduler
+#from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 from django.utils import timezone
 
@@ -49,10 +49,8 @@ def check_entry(item,LIST):
 def calculate_region():
 	print(timezone.now(), "/Starting vector calculation/")
 	prefered_dishes = []
-	#update_product_avg_point()
-	#update_dish_avg_point()
-	pref_products = Product.objects.order_by('avg_point')[:20]
-	all_dishes = Dish.objects.order_by('avg_point')
+	pref_products = Product.objects.order_by('-avg_point')[:20]
+	all_dishes = Dish.objects.order_by('-avg_point')
 	for dish in all_dishes:
 		num_pref_prod = 0
 		for product in pref_products:
@@ -63,3 +61,8 @@ def calculate_region():
 	new_vector.dishes = prefered_dishes
 	new_vector.save(prefered_dishes)
 	print(timezone.now(), prefered_dishes)
+
+def calculate_user():
+	print(timezone.now(), "/Starting user vector calculation/")
+	prefered_dishes = []
+
