@@ -68,7 +68,7 @@ class UserDishInfo(APIView):
 		except AppUser.DoesNotExist:
 			raise Http404
 
-	def get(self, request, format=None):
+	def post(self, request, format=None):
 		dish_info = {}
 		user = request.user
 		dish = self.get_object(request.data)
