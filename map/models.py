@@ -114,13 +114,30 @@ class Product(models.Model):
 	def __str__(self):
 		return self.name
 
+class Preference(models.Model):
+	PRODUCT = 'PR'
+	DISH = 'DS'
+	OBJECT_TYPE_CHOICES = [
+		(DISH, 'Dish'),
+		(PRODUCT, 'Product'),
+	]
+
+	TYPE = models.CharField(max_length=2,choices=OBJECT_TYPE_CHOICES,default=DISH,)
+	user = models.ForeignKey(AppUser,on_delete=models.CASCADE)
+	dish = models.ForeignKey(Dish,on_delete=models.CASCADE,null=True,blank=True)
+	product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
+	preference = models.PositiveSmallIntegerField(default=30)
+	frequency = models.PositiveSmallIntegerField(default=1)
+	weight_effect = models.PositiveSmallIntegerField(default=30)
+	last_meal_date = models.DateField(auto_now=False,auto_now_add=False,blank=True)
+
 class MealHistory(models.Model):
 	date_time = models.DateTimeField(auto_now_add=True)
 	dish = models.ForeignKey(Dish,null=True,blank=True,on_delete=models.SET_NULL,db_index=False) #dish id
 	point = models.NullBooleanField()
 	location = models.CharField(max_length=200,default='russia')
 	user = models.ForeignKey('auth.User',null=True,blank=True,on_delete=models.SET_NULL,db_index=False) #user id
-	weight = models.PositiveSmallIntegerField(blank=True,null=True)
+	weight = models.CharField(max_length=5,blank=True,null=True)
 	acne = models.PositiveSmallIntegerField(blank=True,null=True)
 	accepted = models.BooleanField(default=False)
 

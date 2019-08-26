@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = AppUser
-		fields = ('id', 'name', 'surname', 'email', 'phone', 'telegram', 'registration', 'birthday', 'length')
+		fields = ('user', 'registration', 'name', 'surname', 'email', 'phone', 'region', 'length', 'birthday', 'weigth', 'telegram')
 
 class UserVectorSerializer(serializers.Serializer):
 	id = serializers.IntegerField(read_only=True)
@@ -40,26 +40,3 @@ class RegionVectorSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = RegionVector
 		fields = ('id', 'date_time', 'dishes', 'region')
-
-'''
-	def create(self, validated_data):
-		"""
-		Create and return a new `meal` instance, given the validated data.
-		"""
-		return Snippet.objects.create(**validated_data)
-
-	def update(self, instance, validated_data):
-		"""
-		Update and return an existing `meal` instance, given the validated data.
-		"""
-		instance.date_time = validated_data.get('date_time', instance.date_time)
-		instance.user = validated_data.get('user', instance.user)
-		instance.dish = validated_data.get('dish', instance.dish)
-		instance.point = validated_data.get('point', instance.point)
-		instance.location = validated_data.get('location', instance.location)
-		instance.weight = validated_data.get('weight', instance.weight)
-		instance.acne = validated_data.get('acne', instance.acne)
-		instance.accepted = validated_data.get('accepted', instance.accepted)
-		instance.save()
-		return instance
-'''
