@@ -16,7 +16,9 @@ class MealList(generics.ListCreateAPIView):
 	serializer_class = MealHistorySerializer
 
 	def perform_create(self, serializer):
-		serializer.save(user=self.request.user)
+		app_user = AppUser.objects.get(user=self.request.user)
+		print(app_user)
+		serializer.save(user=app_user)
 
 class MealDetailed(generics.RetrieveUpdateDestroyAPIView):
 	"""
@@ -74,7 +76,7 @@ class UserDishInfo(APIView):
 		dish = self.get_object(request.data)
 		dish_cousine = dish.cousine
 		app_user = AppUser.objects.get(pk=user.id)
-		dish_desc = app_user.get_dish_info(dish.name)
+		dish_desc = app_user.get_dish_info(dish.name, app_user)
 		dish_info = {"user": user.id, "dish_name": dish.name, "dish_cousine": dish_cousine, "dish_desc": dish_desc}
 		serializer = UserDishInfoSerializer(dish_info)
 		return Response(serializer.data)
