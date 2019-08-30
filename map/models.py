@@ -6,6 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
 
+
+'''USER PREFERENCE FUNCTIONS'''
 def point_update(new_point,old_point):
 	if new_point == 1:
 		old_point += 2
@@ -31,6 +33,48 @@ def calculate_avg_preference(preferences):
 		frequency_numbers += 1
 	avg_number = frequency_summ / frequency_numbers
 	return avg_number
+
+
+
+'''VECTORS CALCULATION FUNCTIONS'''
+def lower_dish_points(dish_name):
+	dish_data = Dish.objects.get(name=dish_name)
+	dish = Preference.objects.get(dish=dish_data)
+	point = dish.preference
+	print(point)
+	new_point = point_update(0,point)
+	print(new_point)
+	Preference.objects.filter(dish=dish_data).update(preference=new_point)
+
+def check_entry(item,LIST):
+	num_entries = 0
+	item = str(item)
+	LIST = str(LIST)
+	try:
+		LIST.index(item)
+		num_entries += 1 
+	except ValueError:
+		pass
+	return num_entries
+
+def calculate_user(user):
+	print(timezone.now(), "/Starting user vector calculation/")
+	prefered_dishes = []
+	pref_products = Preference.objects.filter(user=user,TYPE='PR').order_by('-preference')[:20]
+	all_dishes = Preference.objects.filter(user=user,TYPE='DS').order_by('-preference')
+	for dish_preference in all_dishes:
+		dish = Dish.objects.get(name=dish_preference.dish)
+		num_pref_prod = 0
+		for product_preference in pref_products:
+			product = Product.objects.get(name=product_preference.product)
+			num_pref_prod += check_entry(product,dish.products)
+		if num_pref_prod > 1:
+			prefered_dishes.append(dish.name)
+	print(timezone.now(), prefered_dishes)
+	return prefered_dishes
+
+
+'''DJANGO MODELS'''
 
 class Region(models.Model):
 	name = models.CharField(max_length=200, primary_key=True)
@@ -58,23 +102,29 @@ class AppUser(models.Model):
 
 	def get_vector(self):
 		region_vector = RegionVector.objects.order_by('-pk')[:1]
-		dishes = region_vector.values_list("dishes", flat=True)[0]
-		dishes = dishes.replace("]", "").replace("[", "").replace("""'""", "")
-		dishes = dishes.split(',')
-		i = 0
-		vector = ""
-		for dish in dishes:
-			if dish[0] == " ":
-				dish = dish[1:]
-			if i < 3:
-				vector += dish
-				vector += ","
-				i += 1
-			else:
+		prefered_dishes = calculate_user(self)
+		'''dishes = region_vector.values_list("dishes", flat=True)[0]
+								dishes = dishes.replace("]", "").replace("[", "").replace("""'""", "")
+								dishes = dishes.split(',')
+								i = 0
+								vector = ""
+								for dish in dishes:
+									if dish[0] == " ":
+										dish = dish[1:]
+									if i < 3:
+										vector += dish
+										vector += ","
+										i += 1
+									else:
+										break'''
+		print(prefered_dishes)
+		n = 0
+		for choosen_dish in prefered_dishes:
+			n += 1
+			lower_dish_points(choosen_dish)
+			if n > 2:
 				break
-
-		print(vector)
-		result = {'id': self.id, 'vector': vector}
+		result = {'id': self.id, 'vector': prefered_dishes}
 		return result
 
 	def get_dish_info(self, dish, user):

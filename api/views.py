@@ -29,27 +29,43 @@ class MealDetailed(generics.RetrieveUpdateDestroyAPIView):
 	serializer_class = MealHistorySerializer
 
 class UserList(generics.ListCreateAPIView):
-	permission_classes = (permissions.IsAuthenticated,)
+	permission_classes = (permissions.IsAuthenticated)
 	queryset = AppUser.objects.get_queryset().order_by('id')
 	serializer_class = UserSerializer
 
-class UserDetailed(generics.RetrieveUpdateAPIView):
-	permission_classes = (permissions.IsAuthenticated,)
-	queryset = AppUser.objects.all()
-	serializer_class = UserSerializer
-
-class UserVector(APIView):
-	def get_object(self, token):
-		user = User.objects.get(auth_token=token)
-		user_id = user.id
+class UserDetailed(APIView):
+	def get_object(self, user_id):
 		try:
 			return AppUser.objects.get(pk=user_id)
 		except AppUser.DoesNotExist:
 			raise Http404
 
-	def get(self, request, token, format=None):
-		user = self.get_object(token)
-		vector = user.get_vector()
+	def get(self, request, format=None):
+		user = request.user
+		app_user = self.get_object(user.id)
+		serializer = UserSerializer(app_user)
+		return Response(serializer.data)
+
+	def put(self, request, format=None):
+		user = request.user
+		app_user = self.get_object(user.id)
+		serializer = UserSerializer(app_user, data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def delete(self, request, format=None):
+		user = request.user
+		app_user = self.get_object(user.id)
+		user.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserVector(APIView):
+	def get(self, request, format=None):
+		user = request.user
+		app_user = AppUser.objects.get(pk=user.id)
+		vector = app_user.get_vector()
 		serializer = UserVectorSerializer(vector)
 		return Response(serializer.data)
 
