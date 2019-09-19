@@ -90,12 +90,12 @@ class AppUser(models.Model):
 	name = models.CharField(max_length=200,null=True,blank=True)
 	surname = models.CharField(max_length=200,null=True,blank=True)
 	email = models.EmailField(null=True,blank=True,)
-	phone = models.CharField(max_length=20,null=True,blank=True,)
+	phone = models.CharField(max_length=20,null=True,blank=True)
 	region = models.ForeignKey(Region,blank=True,null=True,on_delete=models.SET_NULL,db_index=False)
-	length = models.PositiveSmallIntegerField(null=True,blank=True,)
-	birthday = models.DateField(null=True,blank=True,)
-	weigth = models.PositiveSmallIntegerField(null=True,blank=True,)
-	telegram = models.CharField(max_length=200,null=True,blank=True,)
+	length = models.CharField(max_length=6,null=True,blank=True)
+	birthday = models.DateField(null=True,blank=True)
+	weigth = models.CharField(max_length=6,null=True,blank=True)
+	telegram = models.CharField(max_length=200,null=True,blank=True)
 	
 	def __str__(self):
 		return str(self.user)
@@ -378,8 +378,8 @@ class MealHistory(models.Model):
 				pass
 		'''first scenario weight added
 		program should update user weight'''
-		if self.weight:
-			AppUser.objects.filter(user=self.user).update(weigth=self.weight)
+		if (self.weight) and (self.accepted):
+			AppUser.objects.filter(user=self.user.id).update(weigth=self.weight)
 		super(MealHistory, self).save(*args, **kwargs)
 
 	def __str__(self):

@@ -17,7 +17,6 @@ class MealList(generics.ListCreateAPIView):
 
 	def perform_create(self, serializer):
 		app_user = AppUser.objects.get(user=self.request.user)
-		print(app_user)
 		serializer.save(user=app_user)
 
 class MealDetailed(generics.RetrieveUpdateDestroyAPIView):
@@ -33,7 +32,19 @@ class UserList(generics.ListCreateAPIView):
 	queryset = AppUser.objects.get_queryset().order_by('id')
 	serializer_class = UserSerializer
 
+class UserCreation(APIView):
+	def post(self, request, format=None):
+		data = request.data
+		email = data['email']
+		username = email[:email.find("@")]
+		user = User.objects.create_user(username=username,email=email,password=data['password'])
+		app_user = AppUser.objects.get(user=user)
+		serializer = UserSerializer(app_user)
+		return Response(serializer.data)
+
 class UserDetailed(APIView):
+	permission_classes = (permissions.IsAuthenticated,IsOwnerOrReadOnly)
+	
 	def get_object(self, user_id):
 		try:
 			return AppUser.objects.get(pk=user_id)
