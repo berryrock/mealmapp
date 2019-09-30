@@ -7,80 +7,118 @@
 	<meta name="keywords" content="{{ page.keywords }}"/>
 	<meta name="description" content="{{ page.desc }}"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.7/lottie.min.js" type="text/javascript"></script>
 
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
-	<nav class="navbar sticky-top navbar-expand-lg menu text border-grad">
-		<a class="logo" href="/">Mealmapp</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+	<div class="body">
+		<nav class="navbar sticky-top navbar-expand-lg menu body">
+			<a class="logo" href="/"><img src="./Mealmapp.svg"></a>
+			<button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav ml-auto my-2 my-lg-0">
-				<li class="nav-item active">
-					<a class="nav-link" href="/about/">About</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/app/">App</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/news/">News</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/blog/">Blog</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto my-2 my-lg-0">
+					<li class="nav-item my-auto pad-hor-25">
+						<a class="nav-link text-item" href="/about/">About</a>
+					</li>
+					<li class="nav-item my-auto pad-hor-25">
+						<a class="nav-link text-item" href="/news/">News</a>
+					</li>
+					<li class="nav-item my-auto pad-hor-25">
+						<a class="nav-link text-item" href="/blog/">Blog</a>
+					</li>
+					<li class="nav-item my-auto pad-hor-25">
+						<a class="nav-link text-item" href="#"><img src="./Search.svg"></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
 	
 	{% block content %}
 	{% endblock %}
 
-	<div class="container-fluid text block">
-		<div class="row">
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 v-padding" style="font-weight: 300;">
-					<p><a href="/about/">About project</a></p>
-					<p><a href="/app/">App</a></p>
-					<p><a href="/news/">News</a></p>
-					<p><a href="/blog/">Blog</a></p>
-				</div>
+	<div class="body">
+		<div class="container-fluid py-5 text-center">
+			<div class="text">Join our newsletter</div>
+			<div class="text-center py-3">
+				<button type="button" class="btn button" style="border-color: #9D9D9D">
+					<div class="row">
+						<div class="col-9"><a class="text-item" style="color: #9D9D9D" href="#">E-mail</a></div>
+						<div class="col-3"><img src="./right-arrow.svg" width="22px" height="22px"></div>
+					</div>
+				</button>
 			</div>
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 v-padding">
-					<p><a href="#">Catalog</a></p>
-					<p><a href="#">Support</a></p>
-					<p><a href="#">Service</a></p>
-					<p><a href="#">Payment</a></p>
-					<p><a href="#">Delivery</a></p>
+		</div>
+		<div class="container-fluid pt-5">
+			<div class="row py-2">
+				<div class="col-12 col-lg-7 col-xs-12">
+					<div class="title pb-3"><h1>Mealmapp - personal nutrition assistant</h1></div>
+					<div class="text-item pb-4">Official site of project personal meal recommendation system.
+					Calculation based on data of vital statistic, taste preferences and history of consumption. Important part of the project that all personal information belongs only to user and never used for advertisment or etc.</div>
+					<div class="row py-3">
+						<div class="col-6 col-lg-4 col-md-4 col-xs-6">
+							<div class="text"><a href="#" class="text">About</a></div>
+							<div class="text"><a href="#" class="text">Company</a></div>
+							<div class="text"><a href="#" class="text">Team</a></div>
+							<div class="text"><a href="#" class="text">Blog</a></div>
+							<div class="text"><a href="#" class="text">News</a></div>
+						</div>
+						<div class="col-6 col-lg-4 col-md-4 col-xs-6">
+							<div class="text"><a href="#" class="text">Catalog</a></div>
+							<div class="text"><a href="#" class="text">Service</a></div>
+							<div class="text"><a href="#" class="text">Payment</a></div>
+							<div class="text"><a href="#" class="text">Delivery</a></div>
+							<div class="text"><a href="#" class="text">Support</a></div>
+						</div>
+						<div class="col-12 col-lg-3 col-md-4 col-xs-12"></div>
+					</div>
+					<div class="row"></div>
 				</div>
-			</div>
-			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
-				<div class="col-12 tile" style="background-image: url(/media/footer/company.png); background-repeat: no-repeat; background-size: cover; background-position: top;">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-12 v-padding"><p><a href="#">Future Starts LTD.</a></p>
-								<p>123007 Moscow, Presnenskaya nab. 8</p>
-								<p><a href="mailto:send_letter@mealmapp.io">send_letter@mealmapp.io</a></p>
-							</div>
-							<div class="col-12 v-padding">
-								<p>Social icons</p>
-							</div>
+				<div class="col-12 col-lg-1"></div>
+				<div class="col-12 col-lg-4 col-xs-12">
+					<div class="container-fluid text-center">
+						<div class="circle"><img class="circle" src="./company.png"></div>
+						<div class="text text-center">Mealmapp LTD.</div>
+						<div class="text-item text-center">write_to@mealmapp.io</div>
+					
+						<div class="row py-2  ">
+							<div class="col-12 col-lg-6 col-xs-12 px-0 py-3"><img src="./app-store.png"></div>
+							<div class="col-12 col-lg-6 col-xs-12 px-0 py-3"><img src="./google-play.png"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row pb-3">
+			<div class="col-12">
+				<div class="text-item">© 2019 Mealmapp — personal nutrition assistant. All rights reserved. <a class="text-item" href="#">Terms of Use</a> and <a class="text-item" href="#">Privacy Policy</a></div>
+			</div>
+		</div>
 	</div>
-	<div class="container-fluid">
-		<div class="col-12 text v-padding">© 2019 Mealmapp — personal nutrition assistant. All rights reserved. <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a></div>
-	</div>
+
+	<script>
+
+    var animationData = {"v":"5.5.7","fr":48,"ip":1,"op":386,"w":1920,"h":1920,"nm":"Composition 2","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Shape Layer 1","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[972,918,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":1,"s":[{"i":[[182.742,69.541],[321.029,-121.579],[47.881,-8.684],[2,0],[-225.239,34.679],[0,0]],"o":[[-196.592,-73.839],[-175.068,74.455],[106.17,0.801],[-2,0],[252.975,-33.709],[-257.656,0.516]],"v":[[344.229,-2.676],[-294,7.779],[-754,92],[-530.012,117.199],[168.73,213.375],[846,96]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":99,"s":[{"i":[[192,86],[305.174,-144.433],[88,-20],[2,0],[-218,80],[0,0]],"o":[[-192,-86],[-262,124],[118,-10],[-2,0],[218,-80],[-270,-18]],"v":[[336,-86],[-294,-56],[-754,92],[-422,128],[286,182],[846,96]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":196,"s":[{"i":[[182.742,69.541],[321.029,-121.579],[47.881,-8.684],[2,0],[-225.239,34.679],[0,0]],"o":[[-196.592,-73.839],[-175.068,74.455],[106.17,0.801],[-2,0],[252.975,-33.709],[-257.656,0.516]],"v":[[344.229,-2.676],[-294,7.779],[-754,92],[-530.012,117.199],[168.73,213.375],[846,96]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":287.59,"s":[{"i":[[174,54],[336,-100],[10,2],[2,0],[-232.074,-8.114],[0,0]],"o":[[-200.927,-62.357],[-92.985,27.674],[95,11],[-2,0],[286,10],[-246,18]],"v":[[352,76],[-294,68],[-754,92],[-632,107],[58,243],[846,96]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":387,"s":[{"i":[[183.206,70.367],[320.233,-122.726],[49.894,-9.252],[2,0],[-224.876,36.953],[0,0]],"o":[[-196.361,-74.449],[-179.429,76.941],[106.764,0.259],[-2,0],[251.221,-36.031],[-258.275,-0.412]],"v":[[343.817,-6.857],[-294,4.579],[-754,92],[-524.593,117.741],[174.613,211.801],[846,96]],"c":true}]},{"t":480,"s":[{"i":[[192,86],[305.174,-144.433],[88,-20],[2,0],[-218,80],[0,0]],"o":[[-192,-86],[-262,124],[118,-10],[-2,0],[218,-80],[-270,-18]],"v":[[336,-86],[-294,-56],[-754,92],[-422,128],[286,182],[846,96]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"gf","o":{"a":0,"k":100,"ix":10},"r":1,"bm":0,"g":{"p":3,"k":{"a":0,"k":[0.157,0.961,0.996,0.98,0.53,0.98,0.998,0.99,0.904,1,1,1,0.157,0.1,0.53,0.095,0.904,0.09],"ix":9}},"s":{"a":0,"k":[-750.031,-9.039],"ix":5},"e":{"a":0,"k":[846.719,132.773],"ix":6},"t":1,"nm":"Gradient Fill 1","mn":"ADBE Vector Graphic - G-Fill","hd":false}],"ip":0,"op":1446,"st":0,"cp":true,"bm":0},{"ddd":0,"ind":2,"ty":4,"nm":"Shape Layer 2","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[960,918,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":1,"s":[{"i":[[287.159,-146.595],[0,0],[2,2],[-94,-44],[-173.59,44.431],[2,0],[75.046,30.447]],"o":[[-250.313,126.456],[0,0],[112,2],[321.792,139.533],[163.376,-45.05],[-2,0],[-413.219,-188.64]],"v":[[-157.163,-88.009],[-602,92],[-559.077,92.517],[-144.7,176.864],[529.127,169.946],[918,122],[706.524,66.924]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":98,"s":[{"i":[[309.999,-148],[0,0],[2,2],[-94,-44],[-126,60],[2,0],[62,48]],"o":[[-310,148],[0,0],[112,2],[446,210],[126,-60],[-2,0],[-464,-306]],"v":[[-134,-114],[-602,92],[-572,92],[-180,186],[618,204],[918,122],[748,38]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":197,"s":[{"i":[[287.159,-146.595],[0,0],[2,2],[-94,-44],[-173.59,44.431],[2,0],[75.046,30.447]],"o":[[-250.313,126.456],[0,0],[112,2],[321.792,139.533],[163.376,-45.05],[-2,0],[-413.219,-188.64]],"v":[[-157.163,-88.009],[-602,92],[-559.077,92.517],[-144.7,176.864],[529.127,169.946],[918,122],[706.524,66.924]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":287.59,"s":[{"i":[[265.812,-145.282],[0,0],[2,2],[-94,-44],[-218.068,29.88],[2,0],[87.24,14.043]],"o":[[-194.529,106.322],[0,0],[112,2],[205.709,73.675],[198.308,-31.077],[-2,0],[-365.76,-78.957]],"v":[[-178.812,-63.718],[-602,92],[-547,93],[-111.709,168.325],[446.068,138.12],[918,122],[667.76,93.957]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":387,"s":[{"i":[[288.412,-146.672],[0,0],[2,2],[-94,-44],[-170.979,45.285],[2,0],[74.331,31.411]],"o":[[-253.588,127.639],[0,0],[112,2],[328.608,143.4],[161.325,-45.87],[-2,0],[-416.006,-195.081]],"v":[[-155.892,-89.435],[-602,92],[-559.786,92.489],[-146.637,177.365],[534.004,171.815],[918,122],[708.8,65.337]],"c":true}]},{"t":480,"s":[{"i":[[309.999,-148],[0,0],[2,2],[-94,-44],[-126,60],[2,0],[62,48]],"o":[[-310,148],[0,0],[112,2],[446,210],[126,-60],[-2,0],[-464,-306]],"v":[[-134,-114],[-602,92],[-572,92],[-180,186],[618,204],[918,122],[748,38]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"gf","o":{"a":0,"k":100,"ix":10},"r":1,"bm":0,"g":{"p":3,"k":{"a":0,"k":[0.444,1,1,1,0.679,0.796,0.939,1,0.913,0.592,0.878,1,0.444,0.2,0.679,0.1,0.913,0],"ix":9}},"s":{"a":0,"k":[-601.062,-209.812],"ix":5},"e":{"a":0,"k":[914.672,229.734],"ix":6},"t":1,"nm":"Gradient Fill 1","mn":"ADBE Vector Graphic - G-Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":1446,"st":0,"cp":true,"bm":0},{"ddd":0,"ind":3,"ty":4,"nm":"Shape Layer 3","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[960,960,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":1,"s":[{"i":[[191,5],[145.814,-62.146],[83,2],[-106.057,-40.082],[-92.549,-3.608],[-153.789,123.902],[0,0]],"o":[[-191,-5],[-140.543,60.512],[1,-1],[115.637,40.88],[121.379,4.543],[-1,1],[0,0]],"v":[[-84.024,-146.391],[-585.545,-15.307],[-926.172,77.631],[-551.877,116.371],[-120.59,236.4],[391.496,30.83],[396.295,25.973]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":99,"s":[{"i":[[191,5],[139,-78],[83,2],[-104,-73],[-54,-3],[-251,235],[0,0]],"o":[[-191,-5],[-139,78],[1,-1],[104,73],[54,3],[-1,1],[0,0]],"v":[[-119,-222],[-566,-76],[-920,55],[-628,121],[-207,240],[302,19],[314,9]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":197,"s":[{"i":[[191,5],[145.814,-62.146],[83,2],[-106.057,-40.082],[-92.549,-3.608],[-153.789,123.902],[0,0]],"o":[[-191,-5],[-140.543,60.512],[1,-1],[115.637,40.88],[121.379,4.543],[-1,1],[0,0]],"v":[[-84.024,-146.391],[-585.545,-15.307],[-926.172,77.631],[-551.877,116.371],[-120.59,236.4],[391.496,30.83],[396.295,25.973]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":287.59,"s":[{"i":[[191.001,5],[152.248,-47.175],[83,2],[-108,-9],[-128.948,-4.182],[-62,19],[0,0]],"o":[[-191,-5],[-142,44],[1,-1],[126.624,10.552],[185,6],[-1,1],[0,0]],"v":[[-50.999,-75],[-604,42],[-932,99],[-480,112],[-39,233],[476,42],[474,42]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":387,"s":[{"i":[[191,5],[145.472,-62.941],[83,2],[-105.954,-41.733],[-90.615,-3.578],[-158.666,129.475],[0,0]],"o":[[-191,-5],[-140.466,61.39],[1,-1],[115.053,42.492],[117.999,4.466],[-1,1],[0,0]],"v":[[-85.779,-150.185],[-584.565,-18.352],[-925.862,76.496],[-555.696,116.603],[-124.925,236.58],[387.006,30.236],[392.166,25.122]],"c":true}]},{"t":480,"s":[{"i":[[191,5],[139,-78],[83,2],[-104,-73],[-54,-3],[-251,235],[0,0]],"o":[[-191,-5],[-139,78],[1,-1],[104,73],[54,3],[-1,1],[0,0]],"v":[[-119,-222],[-566,-76],[-920,55],[-628,121],[-207,240],[302,19],[314,9]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"gf","o":{"a":0,"k":100,"ix":10},"r":1,"bm":0,"g":{"p":7,"k":{"a":0,"k":[0.335,1,1,1,0.445,1,1,1,0.555,1,1,1,0.726,0.557,1,0.894,0.896,0.114,1,0.788,0.896,0.114,1,0.788,0.896,0.114,1,0.788,0.335,0.15,0.445,0.125,0.555,0.1,0.726,0.065,0.896,0.03,0.896,0.03,0.896,0.03],"ix":9}},"s":{"a":0,"k":[306.609,-180.273],"ix":5},"e":{"a":0,"k":[-926.898,287.617],"ix":6},"t":1,"nm":"Gradient Fill 1","mn":"ADBE Vector Graphic - G-Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":1446,"st":0,"cp":true,"bm":0},{"ddd":0,"ind":4,"ty":4,"nm":"Shape Layer 4","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[964,918,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":1,"s":[{"i":[[114.953,65.522],[182.537,-137.817],[0,0],[0,0],[-47.441,-22.238],[-112,60],[2,2]],"o":[[-103.332,-61.093],[-179.237,136.048],[0,0],[52.238,-0.337],[172,68],[112,-60],[-80,-4]],"v":[[301.254,-26.238],[-160.011,-83.673],[-488.947,79.754],[-394.083,77.618],[-132.752,107.32],[265.056,120.269],[594,72]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":98,"s":[{"i":[[92,80],[168,-152],[0,0],[0,0],[10,4],[-112,60],[2,2]],"o":[[-92,-80],[-168,152],[0,0],[60,0],[172,68],[112,-60],[-80,-4]],"v":[[272,-80],[-132,-78],[-460,72],[-376,84],[-122,152],[324,130],[594,72]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":197,"s":[{"i":[[114.953,65.522],[182.537,-137.817],[0,0],[0,0],[-47.441,-22.238],[-112,60],[2,2]],"o":[[-103.332,-61.093],[-179.237,136.048],[0,0],[52.238,-0.337],[172,68],[112,-60],[-80,-4]],"v":[[301.254,-26.238],[-160.011,-83.673],[-488.947,79.754],[-394.083,77.618],[-132.752,107.32],[265.056,120.269],[594,72]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":287.59,"s":[{"i":[[136.405,51.992],[196.124,-124.562],[0,0],[0,0],[-101.124,-46.76],[-112,60],[2,2]],"o":[[-113.923,-43.423],[-189.739,121.14],[0,0],[44.983,-0.653],[172,68],[112,-60],[-80,-4]],"v":[[328.595,24.008],[-186.19,-88.975],[-516,87],[-410.983,71.653],[-142.802,65.562],[209.967,111.174],[594,72]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":387,"s":[{"i":[[113.694,66.317],[181.74,-138.595],[0,0],[0,0],[-44.288,-20.798],[-112,60],[2,2]],"o":[[-102.71,-62.13],[-178.62,136.924],[0,0],[52.664,-0.319],[172,68],[112,-60],[-80,-4]],"v":[[299.649,-29.188],[-158.474,-83.362],[-487.358,79.328],[-393.091,77.968],[-132.162,109.772],[268.29,120.803],[594,72]],"c":true}]},{"t":480,"s":[{"i":[[92,80],[168,-152],[0,0],[0,0],[10,4],[-112,60],[2,2]],"o":[[-92,-80],[-168,152],[0,0],[60,0],[172,68],[112,-60],[-80,-4]],"v":[[272,-80],[-132,-78],[-460,72],[-376,84],[-122,152],[324,130],[594,72]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Group 1","np":1,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"gf","o":{"a":0,"k":100,"ix":10},"r":1,"bm":0,"g":{"p":3,"k":{"a":0,"k":[0,0.773,0.929,0.929,0.5,0.794,0.965,0.959,1,0.816,1,0.988,0.001,0.08,0.5,0.1,1,0.12],"ix":9}},"s":{"a":0,"k":[-488.469,19.461],"ix":5},"e":{"a":0,"k":[865.789,13.938],"ix":6},"t":1,"nm":"Gradient Fill 1","mn":"ADBE Vector Graphic - G-Fill","hd":false}],"ip":0,"op":1446,"st":0,"cp":true,"bm":0}],"markers":[]};
+    var params = {
+        container: document.getElementById('lottie'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData: animationData
+    };
+
+    var anim;
+
+    anim = lottie.loadAnimation(params);
+
+	</script>
 </body>
+</html>

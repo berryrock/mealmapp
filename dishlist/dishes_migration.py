@@ -8,7 +8,7 @@ database = DBhelper()
 def dishes_migration():
 	new_table = input('Please, add name of the table with new recipes: ').strip()
 	region = input('For region(enter id): ').strip()
-	new_dishes = database.get_uniq_values('dish_name', new_table)
+	new_dishes = database.get_uniq_values('title', new_table)
 	print()
 	print()
 	for dish in new_dishes:

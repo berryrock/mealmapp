@@ -1,123 +1,154 @@
--webkit-font-smoothing: antialiased;
--webkit-overflow-scrolling: touch;
-
-@media screen {
-@font-face {
-    font-family: 'AkzidenzGroteskPro';
-    src: url('#') format('otf'), url('#') format('woff'), url('#') format('ttf'), url('#') format('eot'), url('#') format('svg');
-}
+a:hover {
+	text-decoration: none;
+	color: inherit;
 }
 
 body {
-	background-color: #202020;
+	background-color: #1A1A1A;
+	color: #FFFFFF;
 }
 
-.logo {
-	font-size: 36px;
+.body {
+	max-width: 1232px;
+	margin: auto;
 }
+
 .menu {
 	position: fixed;
 	top: 0;
 	right: 0;
 	left: 0;
 	z-index: 999;
-	background-color: rgba(32, 32, 32, .8);
-}
-
-.border-grad {
-	background-image: linear-gradient(90deg, transparent, #ececec 50%, transparent); /* указываем угол  0deg для того чтобы градиент начинался от левого края, иначе градиент пойдёт сверху */
-	background-repeat: no-repeat; /* убираем повторение градиента, необходимо для работы background-size */
-	background-position: 50% 100%;
-	background-size: 100% 1px;
-}
-
-.top-border-grad {
-	background-image: linear-gradient(90deg, transparent, #ececec 50%, transparent); /* указываем угол  0deg для того чтобы градиент начинался от левого края, иначе градиент пойдёт сверху */
-	background-repeat: no-repeat; /* убираем повторение градиента, необходимо для работы background-size */
-	background-position: 50% 0%;
-	background-size: 100% 1px;
+	/* background-color: rgba(23, 23, 23, .8); */
 }
 
 .navbar-toggler {
-	border: 1px solid #ececec;
+	border: 0px solid #1A1A1A;
+}
+
+.custom-toggler .navbar-toggler {
+    border-color: #FFFFFF;
+}
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 12h24M4 20h24'/%3E%3C/svg%3E");
+ }
+
+.button {
+	padding: 6px 24px;
+	border-radius: 25px;
+	border: 1px solid #FFFFFF;
+	color: #FFFFFF;
+}
+
+.green {
+	background-color: #13A03B !important;
+	border: 1px solid #13A03B !important;
+}
+
+.green:hover {
+	background-color: #118632 !important;
+	border: 1px solid #118632 !important;
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+@media screen and (min-width: 990px) {
+	.main-screen {
+	height: 100vh;
+}
 }
 
 .banner {
 	height: 80vh;
-	margin-top: 100px;
 }
 
-.block {
-	margin-top: 50px;
+.animation {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	z-index: -999;
 }
-.text {
-	font-family: AkzidenzGroteskPro, Helvetica, Arial, san-serif;
-	font-size: 24px;
-	line-height: 30px;
-	color: #ececec;
-	font-weight: 300;
-	letter-spacing: .3;
+
+.text-place {
+	padding-top: 140px;
+	width: 360px;
+}
+
+.main-title {
+	font-weight: 600;
+	font-size: 52px;
+	line-height: 68px;
+	font-family: Helvetica Neue, Arial, san-serif;
+}
+
+.iphone-background {
+	background-image: url(./iphone.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: cover;
+	width: 100%;
 }
 
 .title {
-	padding-top: 75px;
-	padding-bottom: 40px;
+	padding-bottom: 50px;
+	font-weight: 500;
 	font-size: 36px;
-	line-height: 46px;
-	font-weight: 400;
+	line-height: 54px;
+	font-family: Helvetica Neue, Arial, san-serif;
 }
 
-.text a {
-	text-shadow: 0px 0px 4px #ececec;
-	color: #ececec;
+.under-text {
+	padding-top: 25px;
+	padding-bottom: 50px;
+}
+
+.text-item {
+	font-size: 18px !important;
+	line-height: 27px !important;
+	font-weight: 400 !important;
+	color: #FFFFFF;
+	font-family: Helvetica Neue, Arial, san-serif !important;
+	letter-spacing: .3 !important;
 	text-decoration: none;
+}
+
+.text-special {
+	font-size: 24px;
+	line-height: 36px;
+	font-weight: 500;
+	color: #FFFFFF;
+	font-family: Helvetica Neue, Arial, san-serif;
+}
+
+.text {
+	font-size: 24px;
+	line-height: 36px;
 	font-weight: 400;
+	color: #FFFFFF;
+	font-family: Helvetica Neue, Arial, san-serif;
 }
 
-.position {
-	padding-top: 100px;
+.text-title {
+	text-align: center;
+	padding-bottom: 20px;
+	padding-top: 20px;
 }
 
-.tile {
-	box-shadow: 0px 0px 4px #ececec;
-	border-radius: 8px;
-	padding: 0;
-}
-
-.inner img {
-	width: 100%;
-	max-height: 220px;
-
-}
-
-.outter {
-	
-	height: 386px;
-}
-
-.outter img {
-	width: 100%;
+.circle {
+	width: 100% /* задаете свои размеры */
 	height: 100%;
+	overflow: hidden;
+	padding: 5px; /* создание отступов */
+	border-radius: 50%;
+	/* не забываем о кроссбраузерности */
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
 }
 
-.no-border {
-	box-shadow: none;
-}
-
-.v-padding {
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
-
-.bot-pad {
-	padding-bottom: 100px;
-}
-
-.top-pad {
-	padding-top: 100px;
-}
-
-.border-white {
-	border: 1px solid #ececec;
-	border-radius: 8px;
+.circle img {
+    display: block;
+    width:100%;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 }

@@ -37,13 +37,11 @@ def calculate_avg_preference(preferences):
 
 
 '''VECTORS CALCULATION FUNCTIONS'''
-def lower_dish_points(dish_name):
+def lower_dish_points(dish_name,user):
 	dish_data = Dish.objects.get(name=dish_name)
-	dish = Preference.objects.get(dish=dish_data)
+	dish = Preference.objects.get(dish=dish_data,user=user)
 	point = dish.preference
-	print(point)
 	new_point = point_update(0,point)
-	print(new_point)
 	Preference.objects.filter(dish=dish_data).update(preference=new_point)
 
 def check_entry(item,LIST):
@@ -121,7 +119,7 @@ class AppUser(models.Model):
 		n = 0
 		for choosen_dish in prefered_dishes:
 			n += 1
-			lower_dish_points(choosen_dish)
+			lower_dish_points(choosen_dish,self)
 			if n > 2:
 				break
 		result = {'id': self.id, 'vector': prefered_dishes}

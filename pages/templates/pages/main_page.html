@@ -2,59 +2,64 @@
 
 {% block content %}
 
-	<div class="container-fluid text position">
-		<div class="row">
-			<div class="col-lg-6 col-xs-12 align-self-start">
-				<p>Global food management system</p>
-				<p>Analysis production and&nbsp;consumption around the&nbsp;world powered on&nbsp;a&nbsp;data from users and&nbsp;companies</p>
-				<a href="#">Learn more ---></a>
-			</div>
-		</div>
-	</div>
-	<img src="/media/{{ page.url }}/louie-animation.png" width="100%">
-	<div class="container-fluid text bot-pad">
-		<div class="row">
-			<div class="col-lg-7 col-xs-12 align-self-start title">
-				<p>Latest news of the project</p>
-			</div>
-		</div>
-		<div class="row">
-
-			{% for news in last_news %}
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 tile inner">
-					{% if news.main_picture %}
-					<img src="/media/news/{{ news.main_picture }}">
-					{% endif %}
-					<div class="col-12 v-padding">
-						<p>{{ news.title }}</p>
-						<a href="{% url 'news_detail' url=news.url %}">Read more ---></a>
+	<div class="body">
+		<div class="main-screen container-fluid">
+			<div class="container-fluid pt-5">
+				<div class="row pt-5">
+					<div class="col-12 col-lg-7 col-xs-12 ">
+						<div class="container-fluid">
+							<div class="main-title py-5">Mealmapp - personnal nutrition assistant</div>
+							<div class="text">For accessible health and intelligent lifestyle</div>
+							<!-- <button type="button" class="btn button my-5"><a class="text-item" href="/About/">Learn more</a></button> -->
+							<div class="container-fluid py-5">
+								<div class="row">
+									<div class="col-12 col-lg-4 col-xs-12 text-left px-0 py-3"><img src="./app-store.png"></div>
+									<div class="col-12 col-lg-4 col-xs-12 text-left px-0 py-3"><img src="./google-play.png"></div>
+								</div>
+							</div>
+						</div>	
 					</div>
-				</div>
-			</div>
-			{% endfor %}
-
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 tile no-border">
-					<div class="col-12 v-padding">
-						<p>Check all news about project status, company life and community development</p>
-						<a href="/news/">Browse more ---></a>
+					<div class="col-12 col-lg-5 col-xs-12" style="">
+						<img src="./iphone.png" style="display: block;">
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="container-fluid py-5">
+				<div class="title text-center">Latest news of project</div>
+				<div class="row">
+
+					{% for news in last_news %}
+					<div class="col-12 col-lg-3 col-md-3 col-xs-6 pb-5">
+
+						{% if news.main_picture %}
+						<div class="circle"><a href="{% url 'news_detail' url=news.url %}" target="_blank"><img class="circle" src="/media/news/{{ news.main_picture }}"></a></div>
+						{% endif %}
+
+						<div class="text-item text-center text-title">{{ news.title }}</div>
+					</div>
+					{% endfor %}
+
+				</div>
+				<div class="under-text text-special text-center ">
+					Check all news about project status, company life and community development
+				</div>
+				<div class="text-center"><button type="button" class="btn button"><a class="text-item" href="/news/" target="_blank">Browse more</a></button></div>
+		</div>
 	</div>
+
 	{% if banners %}
 
 	{% for banner in banners %}
-	<div class="banner block" style="background-image: url(/media/{{ page.url }}/{{ banner.image }}); background-repeat: no-repeat; background-position: top;">
-		<div class="container-fluid text">
-			<div class="row">
-				<div class="col-lg-6 col-xs-12 align-self-start position">
-					<p>{{ banner.title }}</p>
-					<p>{{ banner.desc|linebreaksbr }}</p>
-					<a href="{{ banner.link }}">{{ banner.button_text }} ---></a>
+	<div class="banner container-fluid" style="background-image: url(/media/{{ page.url }}/{{ banner.image }}); background-repeat: no-repeat; background-size: cover; background-position: right;">
+		<div class="body">
+			<div class="row text-center align-middle">
+				<div class="col-12 col-lg-6 col-xs-12 align-middle text-left">
+					<div class="main-title py-5">{{ banner.title }}</div>
+					<div class="text">{{ banner.desc|linebreaksbr }}</div>
+					<button type="button" class="btn button green"><a class="text-item" href="{{ banner.link }}">{{ banner.button_text }}</a></button>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -62,92 +67,7 @@
 
 	{% endif %}
 
-	<div class="container-fluid text bot-pad">
-		<div class="row">
-			<div class="col-lg-7 col-xs-12 align-self-start title">
-				<p>Who supports project with data</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12">
-					<img src="">
-					<div class="col-12 v-padding">
-						<a href="#">Partner name</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12">
-					<img src="">
-					<div class="col-12 v-padding">
-						<a href="#">Partner name</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12">
-					<img src="">
-					<div class="col-12 v-padding">
-						<a href="#">Partner name</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12">
-					<img src="">
-					<div class="col-12 v-padding">
-						<a href="#">Partner name</a>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-
 	<!--
-	<div class="container-fluid text">
-		<div class="row">
-			<div class="col-lg-7 col-xs-12 align-self-start title">
-				<p>Use smart devices to collect more information about your vital statistic and to simplify your expirience with application</p>
-			</div>
-		</div>
-		<div class="row bot-pad">
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 tile outter">
-					<img src="/media/{{ page.url }}/device.png">
-				</div>
-				<div class="col-12 v-padding">
-					<p>Smart scales<br>
-					Dark wood version</p>
-					<a href="#">Learn more ---><!--</a>
-				</div>
-			</div>
-			
-			<div class="col-lg-3 col-md-6 col-xs-6 v-padding">
-				<div class="col-12 tile outter">
-					<img src="/media/{{ page.url }}/device.png">
-				</div>
-				<div class="col-12 v-padding">
-					<p>Smart scales<br>
-					Dark wood version</p>
-					<a href="#">Learn more ---><!--</a>
-				</div>
-			</div>
-			<div class="col-lg-6 col-md-12 col-xs-12 v-padding">
-				<div class="col-12 tile outter" style="background-image: url(/media/{{ page.url }}/catalog.png); background-repeat: no-repeat; background-size: cover; background-position: top;">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-12 v-padding"><a href="#">Watch full device catalog ---><!--</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	--->
 	<div class="container-fluid top-pad top-border-grad">
 		<div class="row">
 			<div class="col-lg-12 col-xs-12 align-self-start text">
@@ -156,5 +76,7 @@
 			</div>
 		</div>
 	</div>
+	--->
+	
 
 {% endblock %}

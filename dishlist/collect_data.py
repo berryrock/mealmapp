@@ -16,7 +16,7 @@ def formating(string):
 def cousine_tags_checking(dish,table_name):
 	global cousine
 	global tags
-	data = database.get_filtered_one('dish_kitchen','dish_name',dish,table_name)
+	data = database.get_filtered_one('kitchen','title',dish,table_name)
 	if data:
 		if 'кухня' in data:
 			cousine = data.replace("кухня", "").format()
@@ -29,23 +29,23 @@ def collect_dish_info(dish,table_name,region='russia'):
 	tags = ""
 	cousine_tags_checking(dish, table_name)
 	if tags == "":
-		tags = database.get_filtered_one('dish_tag','dish_name',dish,table_name)
-	TYPE = database.get_filtered_one('dish_type','dish_name',dish,table_name)
-	products = database.get_filtered('dish_products_name','dish_name',dish,table_name)
+		tags = database.get_filtered_one('tags','title',dish,table_name)
+	TYPE = database.get_filtered_one('type','title',dish,table_name)
+	products = database.get_filtered('products','title',dish,table_name)
 	products = formating(products)
-	carbs = database.get_filtered_one('dish_carbs','dish_name',dish,table_name)
+	carbs = database.get_filtered_one('carbs','title',dish,table_name)
 	if carbs:
 		carbs.replace(";", ",")
-	fats = database.get_filtered_one('dish_fats','dish_name',dish,table_name)
+	fats = database.get_filtered_one('fats','title',dish,table_name)
 	if fats:
 		fats.replace(";", ",")
-	proteins = database.get_filtered_one('dish_belki','dish_name',dish,table_name)
+	proteins = database.get_filtered_one('proteins','title',dish,table_name)
 	if proteins:
 		proteins.replace(";", ",")
-	kcal = str(database.get_filtered_one('dish_kcal','dish_name',dish,table_name))
+	kcal = str(database.get_filtered_one('kcal','title',dish,table_name))
 	if kcal:
 		kcal.replace(";", ",")
-	comments = database.get_filtered_one('dish_comments','dish_name',dish,table_name)
+	comments = database.get_filtered_one('comments','title',dish,table_name)
 	avg_point = default_data[0]
 	frequency = default_data[1]
 	region_id = region
