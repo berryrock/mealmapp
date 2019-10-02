@@ -231,10 +231,14 @@ class Device(models.Model):
 
 class Dish(models.Model):
 	name = models.CharField(max_length=200, primary_key=True)
+	alt_name = products = models.TextField(null=True,blank=True,help_text='Enter list of alternative names for dish. Divider comma')
+	eng_name = models.CharField(max_length=200,null=True)
+	cooking_method = models.CharField(max_length=200,null=True)
 	cousine = models.CharField(max_length=200,null=True)
 	TYPE = models.CharField(max_length=200,null=True)
 	tags = models.CharField(max_length=200,null=True,blank=True)
 	products = models.TextField(null=True,blank=True,help_text="All words in lowercase and no spaces, use comma as a divider")
+	weights = models.TextField(null=True,blank=True,help_text="Just numbers of weights of products in the same order as porducts, use comma as a divider")
 	carbs = models.CharField(max_length=200,null=True,blank=True)
 	fats = models.CharField(max_length=200,null=True,blank=True)
 	proteins = models.CharField(max_length=200,null=True,blank=True)
@@ -244,6 +248,7 @@ class Dish(models.Model):
 	frequency = models.CharField(max_length=200,default=30)
 	specials_rules = models.CharField(max_length=200,null=True,blank=True)
 	region = models.ForeignKey(Region,blank=True,null=True,on_delete=models.SET_NULL,db_index=False,default='russia')
+	url = models.URLField(null=True,blank=True)
 	parsed = models.BooleanField(default=False)
 
 	def __str__(self):

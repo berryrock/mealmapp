@@ -19,7 +19,14 @@ body {
 	right: 0;
 	left: 0;
 	z-index: 999;
-	/* background-color: rgba(23, 23, 23, .8); */
+	background-color: rgba(23, 23, 23, .8);
+}
+
+@media screen and (max-width: 767px) {
+	.menu {
+		bottom: 0;
+		top: auto;
+	}
 }
 
 .navbar-toggler {
@@ -59,7 +66,7 @@ body {
 }
 
 .banner {
-	height: 80vh;
+	height: 90vh;
 }
 
 .animation {
@@ -88,6 +95,21 @@ body {
 	background-size: cover;
 	width: 100%;
 }
+
+.email-button {
+	width: 190px;
+	border: 1px solid #9D9D9D;
+	border-radius: 25px;
+
+}
+
+.email-input {
+	border: none;
+	color: #9D9D9D;
+	background-color: #1A1A1A;
+	border-radius: 25px 0 0 25px;
+}
+
 
 .title {
 	padding-bottom: 50px;
@@ -138,7 +160,7 @@ body {
 	width: 100% /* задаете свои размеры */
 	height: 100%;
 	overflow: hidden;
-	padding: 5px; /* создание отступов */
+	padding: 0px; /* создание отступов */
 	border-radius: 50%;
 	/* не забываем о кроссбраузерности */
 	-moz-border-radius: 50%;

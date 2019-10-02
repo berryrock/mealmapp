@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('map/', include('map.urls')),
     path('api/', include('api.urls')),
+    path('dishlist/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.obtain_auth_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

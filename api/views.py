@@ -62,9 +62,8 @@ class UserCreation(APIView):
 		except KeyError:
 			try:
 				telegram = data['telegram']
-				username = telegram + '_tele'
 				password = User.objects.make_random_password()
-				user = User.objects.create_user(username=username,password=password)
+				user = User.objects.create_user(username=telegram,password=password)
 				app_user = AppUser.objects.get(user=user)
 				AppUser.objects.filter(user=user).update(telegram=telegram)
 				serializer = UserSerializer(app_user)
@@ -144,7 +143,6 @@ class UserVector(APIView):
 class UserDishInfo(APIView):
 	def get_object(self, dish):
 		try:
-			name = dish["dish_name"]
 			return Dish.objects.get(name=dish)
 		except Dish.DoesNotExist:
 			Dish.objects.create(name=dish)
