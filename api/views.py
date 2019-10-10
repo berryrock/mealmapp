@@ -57,6 +57,11 @@ class UserCreation(APIView):
 			username = email[:email.find("@")]
 			user = User.objects.create_user(username=username,email=email,password=data['password'])
 			app_user = AppUser.objects.get(user=user)
+			try:
+				app_user.region = Region.objects.get(name='russia')
+				app_user.save()
+			except KeyError:
+				print('No email', user)
 			serializer = UserSerializer(app_user)
 			return Response(serializer.data)
 		except KeyError:
@@ -120,6 +125,8 @@ class UserDetailed(APIView):
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 class UserVector(APIView):
+	permission_classes = (permissions.IsAuthenticated,)
+
 	def get_object(self, user_id=None, telegram=None):
 		try:
 			if user_id:
@@ -166,13 +173,13 @@ class UserDishInfo(APIView):
 			user = request.user
 			app_user = self.get_user(user_id=user.id)
 		try:
-			dish_name = request.data["dish_name"]
+			dish_name = request.data["dish"]
 			dish = self.get_object(dish_name)
 		except:
 			raise Http404
 		dish_cousine = dish.cousine
 		dish_desc = app_user.get_dish_info(dish.name, app_user)
-		dish_info = {"user": app_user.user.id, "dish_name": dish.name, "dish_cousine": dish_cousine, "dish_desc": dish_desc}
+		dish_info = {"user": app_user.user.id, "dish": dish.name, "dish_cousine": dish_cousine, "dish_desc": dish_desc}
 		serializer = UserDishInfoSerializer(dish_info)
 		return Response(serializer.data)
 

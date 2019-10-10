@@ -22,7 +22,7 @@ class UserVectorSerializer(serializers.Serializer):
 
 class UserDishInfoSerializer(serializers.Serializer):
 	user = serializers.IntegerField(read_only=True)
-	dish_name = serializers.CharField(required=True, allow_blank=False)
+	dish = serializers.CharField(required=True, allow_blank=False)
 	dish_cousine = serializers.CharField(read_only=True, allow_blank=True) 
 	dish_desc = serializers.CharField(read_only=True, allow_blank=True) 
 

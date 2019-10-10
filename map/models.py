@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
+import json
 
 
 '''USER PREFERENCE FUNCTIONS'''
@@ -39,10 +40,19 @@ def calculate_avg_preference(preferences):
 '''VECTORS CALCULATION FUNCTIONS'''
 def lower_dish_points(dish_name,user):
 	dish_data = Dish.objects.get(name=dish_name)
-	dish = Preference.objects.get(dish=dish_data,user=user)
-	point = dish.preference
-	new_point = point_update(0,point)
-	Preference.objects.filter(dish=dish_data).update(preference=new_point)
+	try:
+		dish = Preference.objects.get(dish=dish_data,user=user)
+		dish.preference = point_update(0,dish.preference)
+		dish.save()
+	except:
+		Preference.objects.create(TYPE='DS',dish=dish_data,user=user)
+		products = dish_data.products.split(',')
+		for product in products:
+			try:
+				product_preference = Preference.objects.get(product=product,user=user)
+			except:
+				product_obj = Product.objects.get(name=product)
+				Preference.objects.create(TYPE='PR',product=product_obj,user=user)
 
 def check_entry(item,LIST):
 	num_entries = 0
@@ -55,21 +65,62 @@ def check_entry(item,LIST):
 		pass
 	return num_entries
 
-def calculate_user(user):
-	print(timezone.now(), "/Starting user vector calculation/")
-	prefered_dishes = []
-	pref_products = Preference.objects.filter(user=user,TYPE='PR').order_by('-preference')[:20]
-	all_dishes = Preference.objects.filter(user=user,TYPE='DS').order_by('-preference')
-	for dish_preference in all_dishes:
+def get_list_of(dishes,prefered_products):
+	dish_list = {}
+	for dish_preference in dishes:
 		dish = Dish.objects.get(name=dish_preference.dish)
 		num_pref_prod = 0
-		for product_preference in pref_products:
+		for product_preference in prefered_products:
 			product = Product.objects.get(name=product_preference.product)
 			num_pref_prod += check_entry(product,dish.products)
 		if num_pref_prod > 1:
-			prefered_dishes.append(dish.name)
-	print(timezone.now(), prefered_dishes)
-	return prefered_dishes
+			dish_list.update({dish.name: (dish_preference.preference,dish_preference.frequency,dish_preference.weight_effect)})
+	return dish_list
+
+def calculate_points_for(dish_list):
+	pointed_dishes = {}
+	dishes = dish_list.keys()
+	for dish in dishes:
+		points = 0
+		try:
+			preferences = dish_list.get(dish)
+			preference = preferences[0]
+			frequency = preferences[1]
+			weight_effect = preferences[2]
+			points = (preference + weight_effect) / frequency
+		except:
+			pass
+		pointed_dishes.update({dish: points})
+	return pointed_dishes
+
+def calculate_location_vector_for(region='russia',string=True):
+	location_vector = {}
+	print(timezone.now(), "/Starting region vector calculation/")
+	pref_products = Product.objects.order_by('avg_point').reverse()[:20]
+	frequent_dishes = Dish.objects.order_by('frequency').reverse()[:500]
+	for dish in frequent_dishes:
+		points = 0
+		num_pref_prod = 0
+		for product in pref_products:
+			num_pref_prod += check_entry(product,dish.products)
+		if num_pref_prod > 1:
+			points = int(dish.avg_point) + (int(dish.frequency) / 30)
+			location_vector.update({dish.name: points})
+		dish.frequency = str(int(dish.frequency) - 1)
+		dish.save()
+	#print(timezone.now(), location_vector)
+	if string:
+		location_vector = str(location_vector).replace("'",'''"''')
+	return location_vector
+
+def calculate_preference_vector_for(user):
+	print(timezone.now(), "/Starting user vector calculation/")
+	with_pref_products = Preference.objects.filter(user=user,TYPE='PR').order_by('-preference')[:20]
+	dishes = Preference.objects.filter(user=user,TYPE='DS')
+	dish_list = get_list_of(dishes,with_pref_products)
+	preference_vector = calculate_points_for(dish_list)
+	print(timezone.now(), preference_vector)
+	return preference_vector
 
 
 '''DJANGO MODELS'''
@@ -99,30 +150,38 @@ class AppUser(models.Model):
 		return str(self.user)
 
 	def get_vector(self):
-		region_vector = RegionVector.objects.order_by('-pk')[:1]
-		prefered_dishes = calculate_user(self)
-		'''dishes = region_vector.values_list("dishes", flat=True)[0]
-								dishes = dishes.replace("]", "").replace("[", "").replace("""'""", "")
-								dishes = dishes.split(',')
-								i = 0
-								vector = ""
-								for dish in dishes:
-									if dish[0] == " ":
-										dish = dish[1:]
-									if i < 3:
-										vector += dish
-										vector += ","
-										i += 1
-									else:
-										break'''
-		print(prefered_dishes)
+		prefered_dishes={}
+		preference_vector=[]
+		user_prefered_dishes = calculate_preference_vector_for(self)
+		if user_prefered_dishes == {}:
+			user_prefered_dishes = calculate_location_vector_for(self.region,False)
+		else:
+			region_vector_object = RegionVector.objects.filter(region=self.region).order_by('pk').reverse()[0]
+			try:
+				region_prefered_dishes = json.loads(region_vector_object.dishes)
+			except AttributeError:
+				region_prefered_dishes = {}
+			prefered_dishes.update(region_prefered_dishes)
+		prefered_dishes.update(user_prefered_dishes)
+		list_of_prefered_dishes = list(prefered_dishes.items())
+		list_of_prefered_dishes.sort(key=lambda i: i[1])
+		m = 0
+		for i in list_of_prefered_dishes:
+			if m < 10:
+				preference_vector.append(i[0])
+				m += 1
+			else:
+				break
+		print(preference_vector)
+
 		n = 0
-		for choosen_dish in prefered_dishes:
+		for choosen_dish in preference_vector:
 			n += 1
 			lower_dish_points(choosen_dish,self)
 			if n > 2:
 				break
-		result = {'id': self.id, 'vector': prefered_dishes}
+		string = ','.join(preference_vector)
+		result = {'id': self.id, 'vector': string}
 		return result
 
 	def get_dish_info(self, dish, user):
@@ -131,7 +190,7 @@ class AppUser(models.Model):
 		sentences = 0
 		#PRODUCT VARIABLES
 		products_preference_number = 30
-		products_frequency_number = 30
+		products_frequency_number = 1
 		products_preference = []
 		prefered_products = []
 		unprefered_products = []
@@ -142,38 +201,60 @@ class AppUser(models.Model):
 		dish = Dish.objects.get(name=dish)
 		#CREATE UNACCEPTED MEALHISTORY 
 		MealHistory.objects.create(dish=dish,user=user)
-		preference = Preference.objects.get(user=user,dish=dish)
-		#print(preference)
-		#print(preference.preference)
 		try:
-			product_list = dish.products
-			products = product_list.split(',')
-			for product in products:
-				product_preference_list = Preference.objects.get(user=user,product=product)
-				#PREFERENCES
-				products_preferences = check_product_preference('preference',product_preference_list,prefered_products,unprefered_products)
-				products_preference.append(products_preferences[0])
-				try:
-					prefered_products.append(products_preferences[1])
-				except:
-					pass
-				try:
-					unprefered_products.append(products_preferences[2])
-				except:
-					pass
-				products_preferences = check_product_preference('frequency',product_preference_list,prefered_products,unprefered_products)
-				#PREFERENCES
-				products_frequency.append(products_preferences[0])
-				try:
-					frequent_products.append(products_preferences[2])
-				except:
-					pass
-			products_preference_number = calculate_avg_preference(products_preference)
-			products_frequency_number = calculate_avg_preference(products_frequency)
-		except:
-			#print("No products")
-			pass
-		dish_preference = preference.preference
+			preference = Preference.objects.get(user=user,dish=dish)
+			dish_preference = preference.preference
+			dish_frequency = preference.frequency
+
+			try:
+				product_list = dish.products
+				products = product_list.split(',')
+				for product in products:
+
+					try:
+						product_preference_list = Preference.objects.get(user=user,product=product)
+						#PREFERENCES
+						products_preferences = check_product_preference('preference',product_preference_list,prefered_products,unprefered_products)
+						products_preference.append(products_preferences[0])
+						try:
+							prefered_products.append(products_preferences[1])
+						except:
+							pass
+						try:
+							unprefered_products.append(products_preferences[2])
+						except:
+							pass
+						products_preferences = check_product_preference('frequency',product_preference_list,prefered_products,unprefered_products)
+						#FREQUENCY
+						products_frequency.append(products_preferences[0])
+						try:
+							frequent_products.append(products_preferences[2])
+						except:
+							pass
+					except Preference.DoesNotExist:
+						avg_product = Product.objects.get(name=product)
+						avg_product_preference = check_product_preference('avg_point',avg_product,prefered_products,unprefered_products)
+						try:
+							prefered_products.append(avg_product_preference[1])
+						except:
+							pass
+						try:
+							unprefered_products.append(avg_product_preference[2])
+						except:
+							pass
+						products_preference.append(avg_product_preference[0])
+						products_frequency.append(1)
+
+				products_preference_number = calculate_avg_preference(products_preference)
+				products_frequency_number = calculate_avg_preference(products_frequency)
+			except:
+				#print("No products")
+				pass
+
+		except Preference.DoesNotExist:
+			dish_preference = dish.avg_point
+			dish_frequency = 1
+		
 		if (dish_preference > 35) or (products_preference_number > 35):
 			message += "that dish should be liked by you"
 			sentences += 1
@@ -192,7 +273,7 @@ class AppUser(models.Model):
 				message += "and especially {}".format(unprefered_products[0])
 				for prod in unprefered_products:
 					message += ", {}".format(prod)
-		dish_frequency = preference.frequency
+
 		if dish_frequency > 3:
 			if sentences > 0:
 				message += ". But "
@@ -215,7 +296,7 @@ class AppUser(models.Model):
 	@receiver(post_save, sender=User)
 	def create_user_profile(sender, instance, created, **kwargs):
 		if created:
-			AppUser.objects.create(user=instance)
+			AppUser.objects.create(user=instance,email=instance.email)
 
 	@receiver(post_save, sender=User)
 	def save_user_profile(sender, instance, **kwargs):
@@ -282,7 +363,7 @@ class Preference(models.Model):
 	product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
 	preference = models.PositiveSmallIntegerField(default=30)
 	frequency = models.PositiveSmallIntegerField(default=1)
-	weight_effect = models.PositiveSmallIntegerField(default=30)
+	weight_effect = models.SmallIntegerField(default=0)
 	last_meal_date = models.DateField(auto_now=False,auto_now_add=False,null=True,blank=True)
 
 	def __str__(self):
@@ -291,11 +372,13 @@ class Preference(models.Model):
 		string += ") "
 		if self.dish:
 			string += str(self.dish)
-		else:
+		elif self.product:
 			string += str(self.product)
+		else:
+			string += "Unknown"
 		return string
 
-	@receiver(post_save, sender=Dish)
+'''	@receiver(post_save, sender=Dish)
 	def create_dish_preference_for_user(sender, instance, created, **kwargs):
 		if created:
 			users = AppUser.objects.all()
@@ -317,22 +400,28 @@ class Preference(models.Model):
 				Preference.objects.create(TYPE='DS',user=instance,dish=dish)
 			products =Product.objects.all()
 			for product in products:
-				Preference.objects.create(TYPE='PR',user=instance,product=product)
+				Preference.objects.create(TYPE='PR',user=instance,product=product)'''
 
 def update_user_preference(user,dish,product,point,accepted):
 	'''Here starts updating of user preferences'''
-	#user = AppUser.objects.get(user=user)
 	dish_name = None
 	if dish:
-		dish_name = dish.values_list('name',flat=True)[0]
-		user_pref = Preference.objects.filter(user=user,dish=dish_name)
+		try:
+			dish_name = dish.name
+			user_pref = Preference.objects.get(user=user,dish=dish_name)
+		except Preference.DoesNotExist:
+			user_pref = Preference.objects.create(TYPE='DS',user=user,dish=dish)
 	else:
-		user_pref = Preference.objects.filter(user=user,product=product)
-	preference = user_pref.values_list('preference',flat=True)[0]
+		try:
+			user_pref = Preference.objects.get(user=user,product=product)
+		except Preference.DoesNotExist:
+			product_obj = Product.objects.get(name=product)
+			user_pref = Preference.objects.create(TYPE='PR',user=user,product=product)
+	preference = user_pref.preference
 	preference = point_update(point,preference)
 	if accepted:
-		last_meal = user_pref.values_list('last_meal_date',flat=True)[0]
-		frequency = user_pref.values_list('frequency',flat=True)[0]
+		last_meal = user_pref.last_meal_date
+		frequency = user_pref.frequency
 		if last_meal:
 			if datetime.date.today() < (last_meal + datetime.timedelta(days=5)):
 				frequency += 1
@@ -360,21 +449,22 @@ class MealHistory(models.Model):
 		that means program should take dish name and products and update their point and frequency'''
 		if self.dish:
 			#print(self.dish)
-			dish = Dish.objects.filter(name=self.dish,region=self.location)
+			dish = Dish.objects.filter(name=self.dish,region=self.location)[0]
 			#print(dish)
-			dish_point = dish.values_list("avg_point", flat=True)[0]
-			dish_products = dish.values_list("products", flat=True)[0]
+			dish_point = dish.avg_point
+			dish_products = dish.products
 			dish_point = point_update(self.point,dish_point)
-			Dish.objects.filter(name=self.dish).update(avg_point=dish_point)
+			dish.avg_point = dish_point
+			dish.save()
 			#print(self.accepted)
 			update_user_preference(self.user,dish,None,self.point,self.accepted)
 			try:
 				products = dish_products.split(',')			
 				for product in products:
-					product_point = Product.objects.filter(name=product)
-					point = product_point.values_list("avg_point", flat=True)[0]
+					product_point = Product.objects.get(name=product)
+					point = product_point.avg_point
 					point = point_update(self.point,point)
-					Product.objects.filter(name=product).update(avg_point=point)
+					product_point.avg_point = point
 					update_user_preference(self.user,None,product,self.point)
 			except:
 				#print('no products')
@@ -398,6 +488,10 @@ class RegionVector(models.Model):
 		if not self.id:
 			self.date_time = models.DateTimeField(auto_now_add=True)
 		return super(RegionVector, self).save(*args, **kwargs)
+
+	def get_vector(self,region='russia'):
+		self.dishes = self.calculate_location_vector_for(region=region)
+		self.save()
 
 	def __str__(self):
 		self.date_time = str(self.date_time)[:19]
